@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BookOpen, Calendar, Tag, ArrowRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getPaginatedBlogPosts } from "@/lib/content";
 
 const categories = [
   { emoji: "🧸", label: "Kids Riddles", href: "/blog/category/kids-riddles" },
@@ -14,82 +15,9 @@ const categories = [
   { emoji: "⚽", label: "Sports Riddles", href: "/blog/category/sports-riddles" },
 ];
 
-const posts = [
-  {
-    emoji: "🌬️",
-    title: "Chicago Riddles with Answers",
-    description: "Chicago riddles about deep dish, lakefront breezes, and skyline giants",
-    slug: "chicago-riddles",
-  },
-  {
-    emoji: "⭐",
-    title: "Dallas Riddles with Answers",
-    description: "Riddles covering big skies, skyline icons, and Texas pride",
-    slug: "dallas-riddles",
-  },
-  {
-    emoji: "🚀",
-    title: "Houston Riddles with Answers",
-    description: "Explore Houston with riddles about space, sports, and bayou views",
-    slug: "houston-riddles",
-  },
-  {
-    emoji: "🌴",
-    title: "Los Angeles Riddles with Answers",
-    description: "Covers Hollywood, beaches, and palm-lined boulevards",
-    slug: "los-angeles-riddles",
-  },
-  {
-    emoji: "🗽",
-    title: "New York City Riddles with Answers",
-    description: "About boroughs, bridges, and bright lights",
-    slug: "new-york-city-riddles",
-  },
-  {
-    emoji: "🔔",
-    title: "Philadelphia Riddles with Answers",
-    description: "Covers liberty, murals, and food favorites",
-    slug: "philadelphia-riddles",
-  },
-  {
-    emoji: "🌵",
-    title: "Phoenix Riddles with Answers",
-    description: "Desert peaks, sunsets, and cactus trails",
-    slug: "phoenix-riddles",
-  },
-  {
-    emoji: "🌉",
-    title: "San Antonio Riddles with Answers",
-    description: "About the River Walk, missions, and Tex-Mex favorites",
-    slug: "san-antonio-riddles",
-  },
-  {
-    emoji: "🌊",
-    title: "San Diego Riddles with Answers",
-    description: "Covers beaches, ships, and sunny neighborhoods",
-    slug: "san-diego-riddles",
-  },
-  {
-    emoji: "💡",
-    title: "San Jose Riddles with Answers",
-    description: "About tech hubs, gardens, and quirky landmarks",
-    slug: "san-jose-riddles",
-  },
-  {
-    emoji: "☔",
-    title: "Seattle Riddles with Answers",
-    description: "Covers coffee, ferries, and skyline icons",
-    slug: "seattle-riddles",
-  },
-  {
-    emoji: "🧠",
-    title: "TikTok Brain Teasers for Viral Challenges",
-    description: "Brain teasers made for TikTok challenges. A mix of logic, wordplay, and clever twists.",
-    slug: "tiktok-brain-teasers",
-  },
-];
-
 export default function BlogPage() {
+  const { posts } = getPaginatedBlogPosts(1, 12);
+
   return (
     <>
       <Header />
@@ -156,14 +84,14 @@ export default function BlogPage() {
                 <div>
                   <div className="flex items-center justify-center mb-6 min-h-[120px]">
                     <span className="text-7xl filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      {post.emoji}
+                      {post.frontmatter.emoji}
                     </span>
                   </div>
                   <h2 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors">
-                    {post.title}
+                    {post.frontmatter.title}
                   </h2>
                   <p className="text-gray-600 leading-relaxed line-clamp-3">
-                    {post.description}
+                    {post.frontmatter.description}
                   </p>
                 </div>
                 <div className="border-t border-gray-100 pt-4 mt-4">

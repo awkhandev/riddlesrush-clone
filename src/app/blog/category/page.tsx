@@ -1,79 +1,7 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-
-const categories = [
-  {
-    name: "Kids Riddles",
-    slug: "kids-riddles",
-    emoji: "🧸",
-    description: "Fun and easy riddles perfect for children ages 5-12.",
-    color: "blue",
-    count: 45,
-  },
-  {
-    name: "Adult Riddles",
-    slug: "adult-riddles",
-    emoji: "🧠",
-    description: "Challenging brain teasers and logic puzzles.",
-    color: "purple",
-    count: 38,
-  },
-  {
-    name: "Holiday Riddles",
-    slug: "holiday-riddles",
-    emoji: "🎉",
-    description:
-      "Seasonal riddles for Christmas, Halloween, Easter, Thanksgiving.",
-    color: "green",
-    count: 52,
-  },
-  {
-    name: "What Am I Riddles",
-    slug: "what-am-i-riddles",
-    emoji: "🧩",
-    description:
-      "Classic 'What Am I?' riddles that challenge you to guess the object.",
-    color: "orange",
-    count: 35,
-  },
-  {
-    name: "Family Riddles",
-    slug: "family-riddles",
-    emoji: "👨‍👩‍👧‍👦",
-    description:
-      "Perfect riddles for family game nights and road trips.",
-    color: "pink",
-    count: 41,
-  },
-  {
-    name: "Nature Riddles",
-    slug: "nature-riddles",
-    emoji: "🌲",
-    description:
-      "Outdoor-themed riddles about animals, weather, and plants.",
-    color: "green",
-    count: 28,
-  },
-  {
-    name: "Food Riddles",
-    slug: "food-riddles",
-    emoji: "🍕",
-    description:
-      "Delicious riddles about food, cooking, and everything culinary.",
-    color: "red",
-    count: 31,
-  },
-  {
-    name: "Sports Riddles",
-    slug: "sports-riddles",
-    emoji: "⚽",
-    description:
-      "Athletic riddles covering baseball, basketball, soccer.",
-    color: "yellow",
-    count: 25,
-  },
-];
+import { getAllCategories, getBlogPostsByCategory } from "@/lib/content";
 
 const colorMap: Record<string, { bg: string; border: string; text: string }> = {
   blue: {
@@ -120,6 +48,14 @@ export const metadata = {
 };
 
 export default function BlogCategoryPage() {
+  const categories = getAllCategories();
+
+  // Compute post counts per category
+  const postCounts: Record<string, number> = {};
+  for (const cat of categories) {
+    postCounts[cat.slug] = getBlogPostsByCategory(cat.slug).length;
+  }
+
   return (
     <>
       <Header />
@@ -162,6 +98,7 @@ export default function BlogCategoryPage() {
                 {categories.map((category) => {
                   const colors =
                     colorMap[category.color] || colorMap.purple;
+                  const count = postCounts[category.slug] || 0;
                   return (
                     <Link
                       key={category.slug}
@@ -184,7 +121,7 @@ export default function BlogCategoryPage() {
                         </p>
                         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                           <span className="text-sm text-gray-500">
-                            {category.count} Collections
+                            {count} Collections
                           </span>
                           <span className="flex items-center text-[#7736FE] font-medium text-sm group-hover:text-purple-700 transition-colors">
                             Browse collection
