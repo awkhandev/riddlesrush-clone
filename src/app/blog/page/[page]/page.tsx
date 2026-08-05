@@ -3,6 +3,21 @@ import { BookOpen, Calendar, Tag, ArrowRight, ChevronLeft, ChevronRight } from "
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getPaginatedBlogPosts } from "@/lib/content";
+import type { Metadata } from "next";
+
+type PageProps = { params: Promise<{ page: string }> };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { page: pageStr } = await params;
+  const page = Math.max(1, parseInt(pageStr, 10) || 1);
+  return {
+    title: `Riddle Collections - Page ${page} | Riddles Rush`,
+    description: `Browse riddle collections page ${page}. Find riddles by theme, age, difficulty, and occasion.`,
+    alternates: {
+      canonical: `https://riddles-rush.vercel.app/blog/page/${page}`,
+    },
+  };
+}
 
 const categories = [
   { emoji: "🧸", label: "Kids Riddles", href: "/blog/category/kids-riddles" },
@@ -194,8 +209,3 @@ export function generateStaticParams() {
   // Generate pages 2 through 40 (page 1 is handled by /blog/page.tsx)
   return Array.from({ length: 39 }, (_, i) => ({ page: String(i + 2) }));
 }
-
-export const metadata = {
-  title: "Riddle Collections | Riddles Rush",
-  description: "Browse all riddle collections by theme, age, difficulty, and occasion.",
-};

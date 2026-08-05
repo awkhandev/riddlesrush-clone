@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Riddles Rush",
   description:
     "Privacy Policy for RiddlesRush — learn how we handle your data and protect your privacy.",
+  alternates: {
+    canonical: "https://riddles-rush.vercel.app/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

@@ -1,17 +1,45 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { OrganizationSchema } from "@/components/seo/JsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About | Riddles Rush",
   description:
-    "Learn about RiddlesRush — a simple, pleasant way to find riddles for games, classrooms, parties, and everyday fun.",
+    "Learn about RiddlesRush — a simple, pleasant way to find riddles for games, classrooms, parties, and everyday fun. Created by Patrick Stevens.",
+  openGraph: {
+    title: "About Riddles Rush",
+    description:
+      "Learn about RiddlesRush — a simple, pleasant way to find riddles for games, classrooms, parties, and everyday fun.",
+    url: "https://riddles-rush.vercel.app/about",
+    siteName: "Riddles Rush",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://riddles-rush.vercel.app/about",
+  },
 };
 
 export default function AboutPage() {
   return (
     <>
+      <OrganizationSchema />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Patrick Stevens",
+          url: "https://riddles-rush.vercel.app/about",
+          jobTitle: "Software Developer",
+          worksFor: {
+            "@type": "Organization",
+            name: "Riddles Rush",
+          },
+          knowsAbout: ["Riddles", "Brain Teasers", "Puzzles", "Web Development"],
+        }}
+      />
       <Header />
       <main className="flex-1">
         <div className="container max-w-4xl py-8 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">

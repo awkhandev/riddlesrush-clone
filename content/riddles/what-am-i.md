@@ -1,10 +1,16 @@
 ---
-title: "Guess what I am! Brain Teasers (with Solutions)"
-slug: "what-am-i"
-description: "“Guess what I am!?” Brain Teasers stack clues until one answer satisfies every line. They train you to avoid locking onto the first noun that fits clue one and "
-emoji: "🧩"
-category: "what am i"
+title: What Am I Riddles Collection
+slug: what-am-i
+description: >-
+  Test your deduction skills with our collection of “What Am I?” riddles.
+  These brain teasers stack clues until one answer satisfies every line,
+  training you to think beyond the obvious and consider multiple meanings.
+emoji: “❓”
+category: “what-am-i”
 ---
-## Guess what I am! Brain Teasers (with Solutions)
 
-*Challenge yourself with these brain teasers!*
+Test your deduction skills with our collection of “What Am I?” riddles. These brain teasers stack clues until one answer satisfies every line, training you to think beyond the obvious and consider multiple meanings.
+
+## I get smaller every time I take a bath. What am I?
+
+**Answer:** A bar of soap

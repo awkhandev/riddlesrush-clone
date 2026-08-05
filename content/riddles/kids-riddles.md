@@ -1,6 +1,6 @@
 ---
-title: "Kids Riddles"
-slug: "kids"
+title: "Kids Riddles Collection"
+slug: "kids-riddles-collection"
 description: "Fun and easy riddles perfect for children."
 emoji: "🧸"
 category: "kids"

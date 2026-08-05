@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { RiddleReveal } from "@/components/RiddleReveal";
@@ -7,6 +8,8 @@ import {
   getAllRiddleTypeSlugs,
 } from "@/lib/content";
 import type { RiddleItem, RiddleType } from "@/types/content";
+import { FAQPageSchema, BreadcrumbListSchema } from "@/components/seo/JsonLd";
+import { generateRiddleMetadata } from "@/lib/seo-metadata";
 
 // ─── Derived Helpers ────────────────────────────────────────────────────────
 
@@ -54,8 +57,13 @@ function getRelatedRiddles(
 // ─── Static Params ────────────────────────────────────────────────────────────
 
 export function generateStaticParams() {
-  const typeParams = getAllRiddleTypeSlugs().map((type) => ({ slug: type }));
-  const riddleParams = getAllRiddleSlugs().map((slug) => ({ slug }));
+  // Only include hub pages that have actual riddle content
+  const hubSlugs = getAllRiddleTypeSlugs().filter((slug) => {
+    const type = getRiddleType(slug);
+    return type && type.riddles.length > 0;
+  });
+  const typeParams = hubSlugs.map((type) => ({ slug: [type] }));
+  const riddleParams = getAllRiddleSlugs().map((slug) => ({ slug: slug.split("/") }));
   return [...typeParams, ...riddleParams];
 }
 
@@ -64,17 +72,15 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string[] }>;
 }) {
-  const { slug } = await params;
+  const { slug: slugParts } = await params;
+  const slug = slugParts.join("/");
 
   // Check if this is a riddle type hub page
   const typeData = getRiddleType(slug);
   if (typeData) {
-    return {
-      title: `${typeData.frontmatter.title} | Riddles Rush`,
-      description: typeData.frontmatter.description,
-    };
+    return generateRiddleMetadata(typeData, true);
   }
 
   // Otherwise, try to find an individual riddle
@@ -83,6 +89,9 @@ export async function generateMetadata({
     return {
       title: `${riddle.question.slice(0, 60)}... | Riddles Rush`,
       description: riddle.question,
+      alternates: {
+        canonical: `https://riddles-rush.vercel.app/riddles/${riddle.slug}`,
+      },
     };
   }
 
@@ -231,14 +240,36 @@ function HubPage({
 }) {
   const allTypes = getAllRiddleTypeSlugs()
     .map((s) => getRiddleType(s))
-    .filter((t): t is RiddleType => t !== null);
+    .filter((t): t is RiddleType => t !== null && t.riddles.length > 0);
 
   const otherTypes = allTypes.filter(
     (t) => t.frontmatter.slug !== typeData.frontmatter.slug
   );
 
+  const faqs = [
+    {
+      question: `What are ${typeData.frontmatter.title.toLowerCase()}?`,
+      answer: typeData.frontmatter.description,
+    },
+    {
+      question: `How many ${typeData.frontmatter.title.toLowerCase()} are there?`,
+      answer: `There are ${typeData.riddles.length} ${typeData.frontmatter.title.toLowerCase()} in this collection, each with a hidden answer.`,
+    },
+    {
+      question: "Are these riddles suitable for all ages?",
+      answer: "Yes! These riddles are designed to be family-friendly and entertaining for all ages.",
+    },
+  ];
+
   return (
     <>
+      <FAQPageSchema faqs={faqs} />
+      <BreadcrumbListSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: typeData.frontmatter.title, url: `/riddles/${typeData.frontmatter.slug}` },
+        ]}
+      />
       <Header />
       <main className="flex min-h-screen flex-col">
         {/* Hero */}
@@ -285,9 +316,9 @@ function HubPage({
                 Explore other types of riddles
               </h2>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {otherTypes.map((t) => (
+                {otherTypes.map((t, idx) => (
                   <Link
-                    key={t.frontmatter.slug}
+                    key={`${t.frontmatter.slug}-${idx}`}
                     href={`/riddles/${t.frontmatter.slug}`}
                     className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-all duration-300 hover:border-purple-200 hover:shadow-md"
                   >
@@ -338,7 +369,7 @@ function IndividualRiddlePage({
 }) {
   const allTypes = getAllRiddleTypeSlugs()
     .map((s) => getRiddleType(s))
-    .filter((t): t is RiddleType => t !== null);
+    .filter((t): t is RiddleType => t !== null && t.riddles.length > 0);
 
   const related = getRelatedRiddles(riddle.slug, allTypes, 3);
   const moreLike = getRelatedRiddles(riddle.slug + "-more", allTypes, 3).filter(
@@ -347,6 +378,13 @@ function IndividualRiddlePage({
 
   return (
     <>
+      <BreadcrumbListSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: riddle.category, url: `/riddles/${riddle.categorySlug}` },
+          { name: "Riddle", url: `/riddles/${riddle.slug}` },
+        ]}
+      />
       <Header />
       <main className="flex min-h-screen flex-col">
         {/* Hero */}
@@ -462,9 +500,10 @@ function IndividualRiddlePage({
 export default async function RiddlePage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string[] }>;
 }) {
-  const { slug } = await params;
+  const { slug: slugParts } = await params;
+  const slug = slugParts.join("/");
 
   // Check if this is a riddle type hub page
   const typeData = getRiddleType(slug);
@@ -478,25 +517,6 @@ export default async function RiddlePage({
     return <IndividualRiddlePage riddle={riddle} />;
   }
 
-  // 404 fallback
-  return (
-    <>
-      <Header />
-      <main className="flex min-h-screen flex-col items-center justify-center px-4 py-20">
-        <h1 className="mb-4 font-heading text-4xl font-bold text-gray-900">
-          Riddle Not Found
-        </h1>
-        <p className="mb-8 text-lg text-gray-600">
-          Sorry, we couldn&rsquo;t find the riddle you&rsquo;re looking for.
-        </p>
-        <Link
-          href="/"
-          className="inline-flex items-center rounded-xl bg-[#7736FE] px-8 py-3.5 text-base font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#6a2ee6] hover:shadow-lg"
-        >
-          Back to Home
-        </Link>
-      </main>
-      <Footer />
-    </>
-  );
+  // 404 fallback — triggers Next.js not-found page with proper HTTP 404
+  notFound();
 }

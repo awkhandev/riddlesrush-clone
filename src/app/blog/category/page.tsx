@@ -2,6 +2,25 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getAllCategories, getBlogPostsByCategory } from "@/lib/content";
+import { CollectionPageSchema } from "@/components/seo/JsonLd";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Riddle Categories | Browse All Categories",
+  description:
+    "Browse all riddle categories to find the perfect collection for any occasion. From kids riddles to brain teasers, explore our curated collections.",
+  openGraph: {
+    title: "Riddle Categories | Riddles Rush",
+    description:
+      "Browse all riddle categories to find the perfect collection for any occasion.",
+    url: "https://riddles-rush.vercel.app/blog/category",
+    siteName: "Riddles Rush",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://riddles-rush.vercel.app/blog/category",
+  },
+};
 
 const colorMap: Record<string, { bg: string; border: string; text: string }> = {
   blue: {
@@ -41,12 +60,6 @@ const colorMap: Record<string, { bg: string; border: string; text: string }> = {
   },
 };
 
-export const metadata = {
-  title: "Riddle Categories | Riddles Rush",
-  description:
-    "Browse all riddle categories to find the perfect collection for any occasion. From kids riddles to brain teasers, explore our curated collections.",
-};
-
 export default function BlogCategoryPage() {
   const categories = getAllCategories();
 
@@ -58,6 +71,12 @@ export default function BlogCategoryPage() {
 
   return (
     <>
+      <CollectionPageSchema
+        title="Riddle Categories"
+        description="Browse all riddle categories to find the perfect collection for any occasion."
+        url="/blog/category"
+        itemCount={categories.length}
+      />
       <Header />
       <main className="flex min-h-screen flex-col items-center">
         <div className="flex flex-col w-full">

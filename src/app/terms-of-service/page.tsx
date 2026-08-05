@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Terms of Service | Riddles Rush",
   description:
     "Terms of Service for RiddlesRush — understand the rules and guidelines for using our website.",
+  alternates: {
+    canonical: "https://riddles-rush.vercel.app/terms-of-service",
+  },
 };
 
 export default function TermsOfServicePage() {

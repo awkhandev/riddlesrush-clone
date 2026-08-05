@@ -4,6 +4,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BlogRiddleCard } from "@/components/BlogRiddleCard";
 import { getBlogPost, getAllBlogSlugs, getBlogPostsByCategory } from "@/lib/content";
+import { ArticleSchema, FAQPageSchema, BreadcrumbListSchema } from "@/components/seo/JsonLd";
+import { generateBlogPostMetadata } from "@/lib/seo-metadata";
 
 interface Riddle {
   question: string;
@@ -55,10 +57,7 @@ export async function generateMetadata({
     return { title: "Post Not Found | Riddles Rush" };
   }
 
-  return {
-    title: `${post.frontmatter.metaTitle || post.frontmatter.title} | Riddles Rush`,
-    description: post.frontmatter.metaDescription || post.frontmatter.description,
-  };
+  return generateBlogPostMetadata(post);
 }
 
 export default async function BlogPostPage({
@@ -121,8 +120,40 @@ export default async function BlogPostPage({
     }
   }
 
+  const faqs = [
+    {
+      question: `What are ${frontmatter.title.toLowerCase().replace(" with answers", "")}?`,
+      answer: `${frontmatter.title.replace(" with Answers", "")} are fun, themed brain teasers perfect for parties, classrooms, and family gatherings. They challenge your thinking while keeping everyone entertained.`,
+    },
+    {
+      question: "Are these riddles suitable for kids?",
+      answer: "Yes! These riddles are family-friendly and perfect for kids of all ages. They are great for classroom activities, holiday parties, and family game nights.",
+    },
+    {
+      question: "Can I use these riddles for a trivia game?",
+      answer: "Absolutely! These riddles work perfectly as trivia questions. You can use them for parties, family gatherings, or any celebration.",
+    },
+  ];
+
   return (
     <>
+      <ArticleSchema
+        title={frontmatter.title}
+        description={frontmatter.description}
+        url={`https://riddles-rush.vercel.app/blog/${frontmatter.slug}`}
+        datePublished={frontmatter.publishedAt}
+        dateModified={frontmatter.updatedAt}
+        author={frontmatter.author}
+      />
+      <FAQPageSchema faqs={faqs} />
+      <BreadcrumbListSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Categories", url: "/blog" },
+          { name: frontmatter.category, url: `/blog/category/${frontmatter.categorySlug}` },
+          { name: frontmatter.title, url: `/blog/${frontmatter.slug}` },
+        ]}
+      />
       <Header />
       <main className="flex-1">
         {/* Breadcrumbs */}

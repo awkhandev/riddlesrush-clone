@@ -7,6 +7,8 @@ import {
   getAllCategorySlugs,
   getAllCategories,
 } from "@/lib/content";
+import { CollectionPageSchema, BreadcrumbListSchema } from "@/components/seo/JsonLd";
+import { generateCategoryMetadata } from "@/lib/seo-metadata";
 
 const colorMap: Record<string, { bg: string; border: string; pill: string; pillActive: string }> = {
   blue: {
@@ -76,10 +78,7 @@ export async function generateMetadata({
   if (!category) {
     return { title: "Category Not Found | Riddles Rush" };
   }
-  return {
-    title: `${category.name} | Riddles Rush`,
-    description: category.description,
-  };
+  return generateCategoryMetadata(category);
 }
 
 /* ------------------------------------------------------------------ */
@@ -146,6 +145,19 @@ export default async function BlogCategoryPage({
 
   return (
     <>
+      <CollectionPageSchema
+        title={category.name}
+        description={category.description || `Browse ${category.name} riddles.`}
+        url={`/blog/category/${category.slug}`}
+        itemCount={posts.length}
+      />
+      <BreadcrumbListSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Categories", url: "/blog/category" },
+          { name: category.name, url: `/blog/category/${category.slug}` },
+        ]}
+      />
       <Header />
       <main className="flex min-h-screen flex-col items-center">
         <div className="flex flex-col w-full">

@@ -1,10 +1,16 @@
 ---
-title: "Family Brain Teasers (with Solutions)"
-slug: "family"
-description: "Family Brain Teasers are meant for mixed ages: clear language, a fair twist, and a payoff that works whether you are eight or eighty. They are ideal for dinners"
+title: Family Riddles Collection
+slug: family
+description: >-
+  Enjoy our collection of family-friendly riddles perfect for all ages. These
+  brain teasers use clear language, fair twists, and satisfying punchlines
+  that work whether you are eight or eighty. Ideal for family game nights.
 emoji: "👨‍👩‍👧‍👦"
 category: "family"
 ---
-## Family Brain Teasers (with Solutions)
 
-*Challenge yourself with these brain teasers!*
+Enjoy our collection of family-friendly riddles perfect for all ages. These brain teasers use clear language, fair twists, and satisfying punchlines that work whether you are eight or eighty. Ideal for family game nights.
+
+## What can travel around the world while staying in a corner?
+
+**Answer:** A stamp

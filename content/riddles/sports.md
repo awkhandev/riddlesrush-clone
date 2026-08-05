@@ -1,10 +1,16 @@
 ---
-title: "Sports Brain Teasers (with Solutions)"
-slug: "sports"
-description: "Sports Brain Teasers borrow fields, equipment, and game-day language. They often sound like a play-by-play until you notice a double meaning or a rule you assum"
+title: Sports Riddles Collection
+slug: sports
+description: >-
+  Score big with our collection of sports riddles. These brain teasers use
+  fields, equipment, and game-day language to create clever puzzles. Perfect
+  for sports fans and trivia night enthusiasts.
 emoji: "⚽"
 category: "sports"
 ---
-## Sports Brain Teasers (with Solutions)
 
-*Challenge yourself with these brain teasers!*
+Score big with our collection of sports riddles. These brain teasers use fields, equipment, and game-day language to create clever puzzles. Perfect for sports fans and trivia night enthusiasts.
+
+## What has a thumb and four fingers but is not alive?
+
+**Answer:** A glove

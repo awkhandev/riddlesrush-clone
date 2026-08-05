@@ -3,6 +3,25 @@ import { BookOpen, Calendar, Tag, ArrowRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getPaginatedBlogPosts } from "@/lib/content";
+import { CollectionPageSchema } from "@/components/seo/JsonLd";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Riddle Collections | Browse 470+ Riddle Sets by Theme",
+  description:
+    "Browse hundreds of riddle collections by theme, age, difficulty, and occasion. Find riddles for kids, adults, families, holidays, and more.",
+  openGraph: {
+    title: "Riddle Collections | Riddles Rush",
+    description:
+      "Browse hundreds of riddle collections by theme, age, difficulty, and occasion.",
+    url: "https://riddles-rush.vercel.app/blog",
+    siteName: "Riddles Rush",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://riddles-rush.vercel.app/blog",
+  },
+};
 
 const categories = [
   { emoji: "🧸", label: "Kids Riddles", href: "/blog/category/kids-riddles" },
@@ -20,6 +39,12 @@ export default function BlogPage() {
 
   return (
     <>
+      <CollectionPageSchema
+        title="Riddle Collections"
+        description="Browse hundreds of riddle collections by theme, age, difficulty, and occasion."
+        url="/blog"
+        itemCount={470}
+      />
       <Header />
       <main className="flex-1">
         {/* Page Header */}
