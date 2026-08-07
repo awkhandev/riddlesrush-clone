@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { OrganizationSchema } from "@/components/seo/JsonLd";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ArtHero } from "@/components/art";
+import { getThemeBySlug } from "@/lib/visual";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -42,21 +44,17 @@ export default function AboutPage() {
       />
       <Header />
       <main className="flex-1">
-        <div className="container max-w-4xl py-8 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumbs */}
-          <nav className="mb-8 text-sm text-gray-500">
-            <Link href="/" className="hover:text-[#7736FE] transition-colors">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-900 font-medium">About</span>
-          </nav>
+        {/* Hero */}
+        <ArtHero
+          theme={getThemeBySlug("answers")}
+          emoji="🤝"
+          title="About RiddlesRush"
+          description="A simple, pleasant place to find riddles for games, classrooms, parties, and everyday fun."
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+          seed="about"
+        />
 
-          {/* Title */}
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
-            About RiddlesRush
-          </h1>
-
+        <div className="container max-w-4xl py-12 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">
           {/* Content Sections */}
           <div className="prose prose-lg max-w-none">
             <section className="mb-10">

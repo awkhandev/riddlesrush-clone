@@ -9,6 +9,8 @@ import {
 } from "@/lib/content";
 import { CollectionPageSchema, BreadcrumbListSchema } from "@/components/seo/JsonLd";
 import { generateCategoryMetadata } from "@/lib/seo-metadata";
+import { ArtHero, ArtThumb } from "@/components/art";
+import { getBlogTheme } from "@/lib/visual";
 
 const colorMap: Record<string, { bg: string; border: string; pill: string; pillActive: string }> = {
   blue: {
@@ -183,28 +185,14 @@ export default async function BlogCategoryPage({
           </div>
 
           {/* Category Header */}
-          <section className="py-8 sm:py-12 lg:py-16 bg-white border-b border-gray-100">
-            <div className="w-full max-w-5xl sm:max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
-                <div
-                  className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-full border-2 ${colors.bg} ${colors.border}`}
-                >
-                  <span className="text-5xl">{category.emoji}</span>
-                </div>
-                <div className="text-center sm:text-left">
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                    {category.name}
-                  </h1>
-                  <p className="text-lg sm:text-xl text-gray-600 mb-4 max-w-2xl">
-                    {category.description}
-                  </p>
-                  <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-                    {posts.length} Collections
-                  </span>
-                </div>
-              </div>
-            </div>
-          </section>
+          <ArtHero
+            theme={getBlogTheme(category.slug)}
+            emoji={category.emoji}
+            title={category.name}
+            description={category.description}
+            badge={`${posts.length} Collections`}
+            seed={category.slug}
+          />
 
           {/* Category Filter Pills */}
           <section className="py-4 bg-white border-b border-gray-100">
@@ -237,20 +225,19 @@ export default async function BlogCategoryPage({
           <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
             <div className="w-full max-w-5xl sm:max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
               <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post) => (
+                {posts.map((post, idx) => (
                   <Link
                     key={post.slug}
                     href={`/blog/${post.slug}`}
                     className="group flex flex-col bg-white border-2 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden h-full transition-all duration-300 hover:border-purple-300 hover:-translate-y-1"
                   >
-                    {/* Card Image Placeholder */}
-                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-purple-50 to-gray-100">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-6xl opacity-30">
-                          {category.emoji}
-                        </span>
-                      </div>
-                    </div>
+                    {/* Card Image */}
+                    <ArtThumb
+                      theme={getBlogTheme(category.slug)}
+                      emoji={post.frontmatter.emoji}
+                      seed={post.slug}
+                      index={idx}
+                    />
                     <div className="flex flex-col p-5 sm:p-6 text-left flex-1">
                       <div className="flex items-center gap-2 mb-3">
                         <span

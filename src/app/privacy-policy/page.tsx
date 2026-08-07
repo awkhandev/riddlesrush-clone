@@ -1,6 +1,7 @@
-import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ArtHero } from "@/components/art";
+import { getThemeBySlug } from "@/lib/visual";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,21 +18,18 @@ export default function PrivacyPolicyPage() {
     <>
       <Header />
       <main className="flex-1">
-        <div className="container max-w-4xl py-8 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumbs */}
-          <nav className="mb-8 text-sm text-gray-500">
-            <Link href="/" className="hover:text-[#7736FE] transition-colors">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-900 font-medium">Privacy Policy</span>
-          </nav>
+        {/* Hero */}
+        <ArtHero
+          theme={getThemeBySlug("family")}
+          emoji="🛡️"
+          title="Privacy Policy"
+          description="How RiddlesRush handles your data and protects your privacy."
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]}
+          seed="privacy"
+        />
 
-          {/* Title */}
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
-            Privacy Policy
-          </h1>
-          <p className="text-sm text-gray-500 mb-10">
+        <div className="container max-w-4xl py-12 mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-sm text-gray-500 mb-10 mt-6">
             Last updated: August 2, 2026
           </p>
 

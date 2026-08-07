@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ArtHero } from "@/components/art";
+import { getThemeBySlug } from "@/lib/visual";
 
 const features = [
   "Play fun and tricky riddles",
@@ -30,23 +32,17 @@ export default function SubmitRiddlePage() {
     <>
       <Header />
       <main className="flex-1">
-        <div className="container max-w-4xl py-8 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumbs */}
-          <nav className="mb-8 text-sm text-gray-500">
-            <Link href="/" className="hover:text-[#7736FE] transition-colors">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-900 font-medium">Submit Riddle</span>
-          </nav>
+        {/* Hero */}
+        <ArtHero
+          theme={getThemeBySlug("tricky")}
+          emoji="✍️"
+          title="Submit Your Own Riddle"
+          description="Think you've got a tricky riddle that can stump the crowd?"
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Submit Riddle" }]}
+          seed="submit-riddle"
+        />
 
-          {/* Title */}
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Submit Your Own Riddle
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Think you&apos;ve got a tricky riddle that can stump the crowd?
-          </p>
+        <div className="container max-w-4xl py-12 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Form Card */}
           <div className="bg-white p-8 border-2 border-gray-200 rounded-2xl shadow-xl">

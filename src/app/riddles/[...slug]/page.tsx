@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { RiddleReveal } from "@/components/RiddleReveal";
+import { ArtHero } from "@/components/art";
 import {
   getRiddleType,
   getAllRiddleTypeSlugs,
@@ -10,6 +11,7 @@ import {
 import type { RiddleItem, RiddleType } from "@/types/content";
 import { FAQPageSchema, BreadcrumbListSchema } from "@/components/seo/JsonLd";
 import { generateRiddleMetadata } from "@/lib/seo-metadata";
+import { getRiddleTheme } from "@/lib/visual";
 
 // ─── Derived Helpers ────────────────────────────────────────────────────────
 
@@ -186,51 +188,6 @@ function RelatedCard({
   );
 }
 
-// ─── Breadcrumbs ──────────────────────────────────────────────────────────────
-
-function Breadcrumbs({
-  items,
-}: {
-  items: { label: string; href?: string }[];
-}) {
-  return (
-    <nav aria-label="Breadcrumb" className="mb-8">
-      <ol className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
-        {items.map((item, i) => (
-          <li key={item.label} className="flex items-center gap-1.5">
-            {i > 0 && (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-gray-300"
-              >
-                <path d="m9 18 6-6-6-6" />
-              </svg>
-            )}
-            {item.href ? (
-              <Link
-                href={item.href}
-                className="transition-colors hover:text-[#7736FE]"
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span className="font-medium text-gray-800">{item.label}</span>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
-}
-
 // ─── Hub Page ─────────────────────────────────────────────────────────────────
 
 function HubPage({
@@ -261,6 +218,8 @@ function HubPage({
     },
   ];
 
+  const theme = getRiddleTheme(typeData.frontmatter.slug);
+
   return (
     <>
       <FAQPageSchema faqs={faqs} />
@@ -273,23 +232,18 @@ function HubPage({
       <Header />
       <main className="flex min-h-screen flex-col">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-[#f1f7f9] to-white py-12 sm:py-16 lg:py-20">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <Breadcrumbs
-              items={[
-                { label: "Home", href: "/" },
-                { label: typeData.frontmatter.title },
-              ]}
-            />
-            <span className="mb-4 block text-7xl">{typeData.frontmatter.emoji}</span>
-            <h1 className="mb-4 font-heading text-4xl font-bold text-[#7736FE] sm:text-5xl lg:text-6xl">
-              {typeData.frontmatter.title}
-            </h1>
-            <p className="max-w-2xl text-lg text-gray-600">
-              {typeData.frontmatter.description}
-            </p>
-          </div>
-        </section>
+        <ArtHero
+          theme={theme}
+          emoji={typeData.frontmatter.emoji}
+          title={typeData.frontmatter.title}
+          description={typeData.frontmatter.description}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: typeData.frontmatter.title },
+          ]}
+          badge={`${typeData.riddles.length} Riddles`}
+          seed={typeData.frontmatter.slug}
+        />
 
         {/* Riddle listings */}
         <section className="container mx-auto max-w-5xl py-12">
@@ -376,6 +330,10 @@ function IndividualRiddlePage({
     (r) => !related.some((rr) => rr.slug === r.slug),
   );
 
+  const theme = getRiddleTheme(riddle.categorySlug);
+  const hubEmoji =
+    getRiddleType(riddle.categorySlug)?.frontmatter.emoji || "🧠";
+
   return (
     <>
       <BreadcrumbListSchema
@@ -388,23 +346,20 @@ function IndividualRiddlePage({
       <Header />
       <main className="flex min-h-screen flex-col">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-[#f1f7f9] to-white py-12 sm:py-16 lg:py-20">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-            <Breadcrumbs
-              items={[
-                { label: "Home", href: "/" },
-                {
-                  label: riddle.category,
-                  href: `/riddles/${riddle.categorySlug}`,
-                },
-                { label: "Riddle" },
-              ]}
-            />
-            <h1 className="mb-6 font-heading text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl leading-tight">
-              {riddle.question}
-            </h1>
-          </div>
-        </section>
+        <ArtHero
+          theme={theme}
+          emoji={hubEmoji}
+          title={riddle.question}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            {
+              label: riddle.category,
+              href: `/riddles/${riddle.categorySlug}`,
+            },
+            { label: "Riddle" },
+          ]}
+          seed={riddle.slug}
+        />
 
         {/* Riddle card */}
         <section className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">

@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ArtHero } from "@/components/art";
+import { getThemeBySlug } from "@/lib/visual";
 import {
   TeddyBearIcon,
   BrainIcon,
@@ -117,21 +119,14 @@ export default function RiddleOfTheDayPage() {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-[#f1f7f9] to-white pt-16 pb-24">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-purple-100/60 blur-3xl" />
-            <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-blue-100/60 blur-3xl" />
-          </div>
-
-          <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="font-heading font-bold text-4xl sm:text-6xl mb-4 text-[#7736FE]">
-              Riddle of the Day
-            </h1>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              A fresh riddle every day to challenge your mind!
-            </p>
-          </div>
-        </section>
+        <ArtHero
+          theme={getThemeBySlug("answers")}
+          emoji="💡"
+          title="Riddle of the Day"
+          description="A fresh riddle every day to challenge your mind!"
+          badge="Daily Brain Teaser"
+          seed="riddle-of-the-day"
+        />
 
         {/* Featured Riddle Card */}
         <section className="px-4 sm:px-6 lg:px-8 -mt-8">

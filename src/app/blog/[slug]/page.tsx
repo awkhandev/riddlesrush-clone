@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { ChevronRight, CheckCircle, ArrowRight } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BlogRiddleCard } from "@/components/BlogRiddleCard";
+import { ArtHero } from "@/components/art";
 import { getBlogPost, getAllBlogSlugs, getBlogPostsByCategory } from "@/lib/content";
 import { ArticleSchema, FAQPageSchema, BreadcrumbListSchema } from "@/components/seo/JsonLd";
 import { generateBlogPostMetadata } from "@/lib/seo-metadata";
+import { getBlogTheme } from "@/lib/visual";
 
 interface Riddle {
   question: string;
@@ -156,54 +158,23 @@ export default async function BlogPostPage({
       />
       <Header />
       <main className="flex-1">
-        {/* Breadcrumbs */}
-        <div className="relative py-3 sm:py-4 lg:py-6">
-          <div className="container max-w-7xl mb-2 sm:mb-3 lg:mb-4">
-            <nav className="text-sm text-gray-600 flex flex-wrap items-center gap-1">
-              <Link
-                href="/"
-                className="inline-flex items-center hover:text-[#7736FE] transition-colors"
-              >
-                Home
-              </Link>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
-              <Link
-                href="/blog"
-                className="inline-flex items-center hover:text-[#7736FE] transition-colors"
-              >
-                Categories
-              </Link>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
-              <Link
-                href={`/blog/category/${frontmatter.categorySlug}`}
-                className="inline-flex items-center hover:text-[#7736FE] transition-colors"
-              >
-                {frontmatter.category}
-              </Link>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-900 font-medium line-clamp-2 sm:line-clamp-1">
-                {frontmatter.title}
-              </span>
-            </nav>
-          </div>
-        </div>
-
         {/* Article Header */}
-        <section className="relative">
-          <div className="container max-w-5xl lg:max-w-6xl mx-auto">
-            <div className="text-center mb-4 sm:mb-5 lg:mb-6">
-              <div className="text-5xl filter drop-shadow-lg sm:text-6xl lg:text-7xl mb-2">
-                {frontmatter.emoji}
-              </div>
-              <h1 className="mb-2 text-3xl font-bold leading-snug text-gray-900 sm:mb-3 sm:text-4xl sm:leading-tight lg:mb-3 lg:text-4xl">
-                {frontmatter.title}
-              </h1>
-              <p className="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600 sm:text-xl">
-                {frontmatter.description}
-              </p>
-            </div>
-          </div>
-        </section>
+        <ArtHero
+          theme={getBlogTheme(frontmatter.categorySlug)}
+          emoji={frontmatter.emoji}
+          title={frontmatter.title}
+          description={frontmatter.description}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Categories", href: "/blog" },
+            {
+              label: frontmatter.category,
+              href: `/blog/category/${frontmatter.categorySlug}`,
+            },
+            { label: frontmatter.title },
+          ]}
+          seed={frontmatter.slug}
+        />
 
         {/* Riddle Content Area */}
         <section className="container max-w-4xl mx-auto px-4">

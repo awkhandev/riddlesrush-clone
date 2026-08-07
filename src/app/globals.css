@@ -168,3 +168,30 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Floating emoji animation for hero art */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+.animate-float-delay-1 {
+  animation-delay: 1.2s;
+}
+.animate-float-delay-2 {
+  animation-delay: 2.4s;
+}
+.animate-float-delay-3 {
+  animation-delay: 3.6s;
+}
+.animate-float-delay-4 {
+  animation-delay: 4.8s;
+}

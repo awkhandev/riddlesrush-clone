@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { BookOpen, Calendar, Tag, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Tag, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ArtHero, ArtThumb } from "@/components/art";
 import { getPaginatedBlogPosts } from "@/lib/content";
+import { getBlogTheme } from "@/lib/visual";
 import type { Metadata } from "next";
 
 type PageProps = { params: Promise<{ page: string }> };
@@ -40,32 +42,17 @@ export default async function BlogPaginatedPage({ params }: { params: Promise<{ 
       <Header />
       <main className="flex-1">
         {/* Page Header */}
-        <section className="container mx-auto max-w-7xl py-8 lg:py-20 px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-6">
-              <div className="flex items-center justify-center bg-blue-100 rounded-full w-16 h-16 mr-4">
-                <BookOpen className="w-8 h-8 text-blue-600" />
-              </div>
-            </div>
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900">
-              Riddle Collections
-            </h1>
-            <p className="mt-4 text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Browse fun riddle collections by theme, age, difficulty, and occasion, including riddles for kids, couples, classrooms, holidays, and more.
-            </p>
-            <div className="mt-8 flex items-center justify-center space-x-6 text-sm text-gray-500">
-              <span className="flex items-center">
-                <Calendar className="w-4 h-4 mr-2" />
-                {totalPages * 12} Collections
-              </span>
-              <span className="flex items-center">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Updated Regularly
-              </span>
-            </div>
-          </div>
+        <ArtHero
+          theme={getBlogTheme("blog")}
+          emoji="🧩"
+          title="Riddle Collections"
+          description="Browse fun riddle collections by theme, age, difficulty, and occasion, including riddles for kids, couples, classrooms, holidays, and more."
+          badge={`${totalPages * 12}+ Collections`}
+          seed="blog-paginated"
+        />
 
-          {/* Category Filter Pills */}
+        {/* Category Filter Pills */}
+        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12">
           <div className="mt-12">
             <div className="flex items-center justify-center mb-4">
               <Tag className="w-4 h-4 mr-2 text-gray-500" />
@@ -92,26 +79,29 @@ export default async function BlogPaginatedPage({ params }: { params: Promise<{ 
 
           {/* Blog Post Grid */}
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
+            {posts.map((post, i) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group relative flex flex-col bg-white border-2 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl p-6 justify-between h-full transition-all duration-300 hover:border-blue-300 hover:-translate-y-1"
+                className="group relative flex flex-col bg-white border-2 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden justify-between h-full transition-all duration-300 hover:border-blue-300 hover:-translate-y-1"
               >
                 <div>
-                  <div className="flex items-center justify-center mb-6 min-h-[120px]">
-                    <span className="text-7xl filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      {post.frontmatter.emoji}
-                    </span>
+                  <ArtThumb
+                    theme={getBlogTheme(post.frontmatter.categorySlug)}
+                    emoji={post.frontmatter.emoji}
+                    seed={post.slug}
+                    index={i}
+                  />
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors">
+                      {post.frontmatter.title}
+                    </h2>
+                    <p className="text-gray-600 leading-relaxed line-clamp-3">
+                      {post.frontmatter.description}
+                    </p>
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors">
-                    {post.frontmatter.title}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed line-clamp-3">
-                    {post.frontmatter.description}
-                  </p>
                 </div>
-                <div className="border-t border-gray-100 pt-4 mt-4">
+                <div className="border-t border-gray-100 pt-4 mt-4 px-6 pb-6">
                   <span className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
                     Browse collection
                     <ArrowRight className="w-4 h-4 ml-2" />
