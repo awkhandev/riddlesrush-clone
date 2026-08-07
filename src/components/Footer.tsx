@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { YoutubeIcon, MailIcon, ExternalLinkIcon } from "./icons";
+import { InstagramIcon, FacebookIcon, MailIcon } from "./icons";
 
 const footerLinks = [
   {
@@ -32,32 +31,19 @@ const footerLinks = [
 
 const socialLinks = [
   {
+    label: "Instagram",
+    href: "https://www.instagram.com/riddlesrush1/?hl=en",
+    icon: <InstagramIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61593173212651",
+    icon: <FacebookIcon className="h-4 w-4" />,
+  },
+  {
     label: "Contact",
-    href: "mailto:contact@patrickws.com",
+    href: "mailto:riddlesrush1@gmail.com",
     icon: <MailIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Pinterest",
-    href: "https://www.pinterest.com/riddlesrush",
-    icon: (
-      <Image
-        src="/images/pinterest-logo.png"
-        alt="Pinterest"
-        width={16}
-        height={16}
-        className="rounded"
-      />
-    ),
-  },
-  {
-    label: "YouTube",
-    href: "https://www.youtube.com/@RiddlesRush24",
-    icon: <YoutubeIcon className="h-4 w-4" />,
-  },
-  {
-    label: "TriviaBrain",
-    href: "https://www.triviabrain.io/",
-    icon: <ExternalLinkIcon className="h-4 w-4" />,
   },
 ];
 
