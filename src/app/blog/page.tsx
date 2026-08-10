@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Tag, ArrowRight } from "lucide-react";
+import { Tag, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ArtHero, ArtThumb } from "@/components/art";
@@ -37,7 +37,7 @@ const categories = [
 ];
 
 export default function BlogPage() {
-  const { posts } = getPaginatedBlogPosts(1, 12);
+  const { posts, totalPages, currentPage } = getPaginatedBlogPosts(1, 12);
 
   return (
     <>
@@ -121,9 +121,57 @@ export default function BlogPage() {
 
           {/* Pagination */}
           <div className="mt-12 flex items-center justify-center">
-            <div className="flex items-center space-x-2 text-sm text-gray-500">
-              <span>Page 1 of 40</span>
-            </div>
+            <nav className="flex items-center gap-2">
+              {/* Previous */}
+              <span className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-200 rounded-lg cursor-not-allowed">
+                <ChevronLeft className="w-4 h-4" />
+                Previous
+              </span>
+
+              {/* Page 1 (current) */}
+              <span className="px-3 py-2 text-sm font-medium rounded-lg bg-[#7736FE] text-white">
+                1
+              </span>
+
+              {/* Page 2 */}
+              <Link
+                href="/blog/page/2"
+                className="px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
+              >
+                2
+              </Link>
+
+              {/* Page 3 */}
+              <Link
+                href="/blog/page/3"
+                className="px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
+              >
+                3
+              </Link>
+
+              <span className="px-2 py-2 text-sm text-gray-500">...</span>
+
+              {/* Last page */}
+              <Link
+                href={`/blog/page/${totalPages}`}
+                className="px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
+              >
+                {totalPages}
+              </Link>
+
+              {/* Next */}
+              <Link
+                href="/blog/page/2"
+                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Next
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            </nav>
+          </div>
+
+          <div className="mt-4 text-center text-sm text-gray-500">
+            Page {currentPage} of {totalPages}
           </div>
         </section>
 

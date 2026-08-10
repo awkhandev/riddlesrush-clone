@@ -14,17 +14,34 @@ const features = [
 ];
 
 export default function SubmitRiddlePage() {
+  const [name, setName] = useState("");
   const [riddle, setRiddle] = useState("");
   const [answer, setAnswer] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (riddle.trim() && answer.trim()) {
-      setSubmitted(true);
-      setRiddle("");
-      setAnswer("");
-      setTimeout(() => setSubmitted(false), 3000);
+    if (!riddle.trim() || !answer.trim()) return;
+
+    setSending(true);
+    try {
+      const res = await fetch("/api/submit-riddle", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), riddle: riddle.trim(), answer: answer.trim() }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        setName("");
+        setRiddle("");
+        setAnswer("");
+        setTimeout(() => setSubmitted(false), 3000);
+      }
+    } catch {
+      // silently fail
+    } finally {
+      setSending(false);
     }
   };
 
@@ -47,6 +64,23 @@ export default function SubmitRiddlePage() {
           {/* Form Card */}
           <div className="bg-white p-8 border-2 border-gray-200 rounded-2xl shadow-xl">
             <form onSubmit={handleSubmit}>
+              <div className="mb-6">
+                <label
+                  htmlFor="name"
+                  className="block text-xl font-bold text-gray-700 mb-2"
+                >
+                  Your Name <span className="text-gray-400 font-normal">(optional)</span>
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name..."
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7736FE] focus:border-transparent"
+                />
+              </div>
+
               <div className="mb-6">
                 <label
                   htmlFor="riddle"
@@ -85,9 +119,10 @@ export default function SubmitRiddlePage() {
 
               <button
                 type="submit"
-                className="bg-green-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-600 transition-colors"
+                disabled={sending}
+                className="bg-green-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-600 transition-colors disabled:opacity-50"
               >
-                {submitted ? "Submitted! ✓" : "Submit Riddle"}
+                {submitted ? "Submitted! ✓" : sending ? "Sending..." : "Submit Riddle"}
               </button>
             </form>
 

@@ -17,7 +17,13 @@ export const metadata: Metadata = {
   description:
     "Challenge your brain with free riddles, brain teasers, and puzzles for kids and adults. Browse hundreds of riddle collections organized by theme, difficulty, and occasion.",
   icons: {
-    icon: "/images/riddlesrush-icon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/riddlesrush-icon.png", sizes: "44x44", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",

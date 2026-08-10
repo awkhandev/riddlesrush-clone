@@ -3,17 +3,34 @@
 import { useState } from "react";
 
 export function SubmitRiddleSection() {
+  const [name, setName] = useState("");
   const [riddle, setRiddle] = useState("");
   const [answer, setAnswer] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (riddle.trim() && answer.trim()) {
-      setSubmitted(true);
-      setRiddle("");
-      setAnswer("");
-      setTimeout(() => setSubmitted(false), 3000);
+    if (!riddle.trim() || !answer.trim()) return;
+
+    setSending(true);
+    try {
+      const res = await fetch("/api/submit-riddle", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), riddle: riddle.trim(), answer: answer.trim() }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        setName("");
+        setRiddle("");
+        setAnswer("");
+        setTimeout(() => setSubmitted(false), 3000);
+      }
+    } catch {
+      // silently fail
+    } finally {
+      setSending(false);
     }
   };
 
@@ -30,6 +47,17 @@ export function SubmitRiddleSection() {
 
           <div className="user-riddles text-lg">
             <form onSubmit={handleSubmit} className="mt-4">
+              <label className="block text-xl font-bold text-gray-700 mb-2">
+                Your Name <span className="text-gray-400 font-normal">(optional)</span>
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name..."
+                className="border rounded-lg p-2 w-full mb-4 text-lg"
+              />
+
               <label className="block text-xl font-bold text-gray-700 mb-2">
                 Riddle
               </label>
@@ -56,9 +84,10 @@ export function SubmitRiddleSection() {
 
               <button
                 type="submit"
+                disabled={sending}
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-[#9874e1] sm:hover:scale-105 sm:hover:transform h-10 mt-4 bg-green-500 text-white px-4 py-2 text-lg font-bold"
               >
-                {submitted ? "Submitted! ✓" : "Submit Riddle"}
+                {submitted ? "Submitted! ✓" : sending ? "Sending..." : "Submit Riddle"}
               </button>
             </form>
 
