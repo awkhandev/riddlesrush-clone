@@ -23,7 +23,7 @@ const faqs = [
   {
     question: "Is there a mobile app?",
     answer:
-      "Yes! We have an iOS app available on the App Store. You can download it to solve riddles on the go. Our Android app is coming soon!",
+      "Our mobile app is coming soon for both iOS and Android! Stay tuned — we're working hard to bring you the best riddle-solving experience on mobile.",
   },
   {
     question: "Are the riddles suitable for all ages?",

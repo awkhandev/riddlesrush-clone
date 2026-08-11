@@ -2,14 +2,14 @@
 title: Family Riddles Collection
 slug: family
 description: >-
-  Enjoy our collection of family-friendly riddles perfect for all ages. These
-  brain teasers use clear language, fair twists, and satisfying punchlines
-  that work whether you are eight or eighty. Ideal for family game nights.
+  Riddles that everyone can enjoy, from grandparents to grandchildren.
+  Fair clues, clear language, and answers that spark great conversations.
+  Built for game nights, road trips, and lazy Sunday afternoons.
 emoji: "👨‍👩‍👧‍👦"
 category: "family"
 ---
 
-Enjoy our collection of family-friendly riddles perfect for all ages. These brain teasers use clear language, fair twists, and satisfying punchlines that work whether you are eight or eighty. Ideal for family game nights.
+The best family riddles are the ones where a 7-year-old and a 70-year-old can both participate. This collection is designed for exactly that — riddles with clear clues, logical answers, and just enough challenge to keep everyone engaged without leaving anyone behind.
 
 ## What can travel around the world while staying in a corner?
 

@@ -9,6 +9,8 @@ publishedAt: "2025-05-10"
 author: "Patrick Stevens"
 tags: ["tiktok", "brain-teasers", "viral", "challenges"]
 ---
+Ready for a real challenge? These 🧠 riddles are built for grown-up brains — the kind that enjoy a puzzle with some teeth. Whether you're looking to stump your friends or just want a mental workout, this collection delivers.
+
 
 ## 🧠 TikTok Brain Teasers
 
@@ -61,3 +63,18 @@ I'm a three-digit number. My tens digit is five more than my ones digit. My hund
 I have cities but no houses, forests but no trees, and water but no fish. What am I?
 
 **Answer:** A map
+
+---
+
+*Written by Patrick Stevens and the Riddles Rush Team.*
+
+
+## Keep the Fun Going
+
+Enjoyed these riddles? Here are some related collections you might like:
+
+- [Fun Riddles For Kids](/blog/fun-riddles-for-kids)
+- [Brain Teasers](/blog/brain-teasers)
+- [Camping Riddles With Answers](/blog/camping-riddles-with-answers)
+
+Or browse all our [riddle collections](/blog) to find the perfect brain teasers for any occasion.

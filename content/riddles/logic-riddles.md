@@ -1,10 +1,12 @@
 ---
 title: "Logic Riddles"
 slug: "logic-riddles"
-description: "Riddles that test your logical reasoning and deduction skills."
+description: "Step-by-step reasoning puzzles that reward careful thinking. These riddles require you to work through clues methodically rather than guess randomly."
 emoji: "🔗"
 category: "logic"
 ---
+
+Logic riddles aren't about clever wordplay — they're about following a chain of reasoning to its conclusion. Each one gives you a set of facts and asks you to deduce something that isn't immediately obvious. If you enjoy thinking through problems systematically, this is your collection.
 
 ## 1. The Elevator Riddle
 

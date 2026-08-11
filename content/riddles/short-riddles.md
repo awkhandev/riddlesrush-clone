@@ -1,10 +1,12 @@
 ---
 title: "Short Riddles"
 slug: "short-riddles"
-description: "Quick brain teasers you can solve in seconds."
+description: "Bite-sized brain teasers with big impact. Each riddle is quick to read, quick to solve, and guaranteed to make you smile — or groan."
 emoji: "⚡"
 category: "short"
 ---
+
+Sometimes you don't need a ten-paragraph puzzle. Sometimes you just need a quick riddle that lands in two seconds and makes everyone laugh. That's exactly what this collection delivers — short, punchy brain teasers that work as conversation starters, icebreakers, or just a quick mental workout between tasks.
 
 ## 1. Keys but No Locks
 

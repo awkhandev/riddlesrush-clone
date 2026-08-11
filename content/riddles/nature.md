@@ -2,14 +2,14 @@
 title: Nature Riddles Collection
 slug: nature
 description: >-
-  Explore our collection of nature riddles featuring animals, weather, plants,
-  and outdoor scenes. These brain teasers reward literal reading and creative
-  thinking about the natural world.
+  Brain teasers about the great outdoors — animals, weather, plants, and
+  landscapes. These riddles make you see nature from a completely different
+  angle. Perfect for hiking, camping, and classroom exploration.
 emoji: "🌳"
 category: "nature"
 ---
 
-Explore our collection of nature riddles featuring animals, weather, plants, and outdoor scenes. These brain teasers reward literal reading and creative thinking about the natural world.
+The natural world is full of contradictions and surprises, which makes it perfect riddle material. These nature riddles challenge you to think about trees, animals, weather, and landscapes in ways you never considered — and the answers are always hiding in plain sight.
 
 ## What has a neck but no head?
 

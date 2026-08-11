@@ -2,14 +2,14 @@
 title: Food Riddles Collection
 slug: food
 description: >-
-  Feast on our collection of food riddles. These brain teasers play with
-  cooking verbs, ingredients, and mealtimes to create deliciously tricky
-  puzzles. Perfect for dinner parties and culinary class activities.
+  Riddles about everything edible — from fruits and vegetables to kitchen
+  tools and cooking techniques. Great for food lovers, dinner party
+  conversation starters, and classroom activities.
 emoji: "🍕"
 category: "food"
 ---
 
-Feast on our collection of food riddles. These brain teasers play with cooking verbs, ingredients, and mealtimes to create deliciously tricky puzzles. Perfect for dinner parties and culinary class activities.
+Food is something everyone has experience with, which makes food riddles universally fun. Whether you're quizzing friends at a dinner party or keeping kids entertained while dinner cooks, these riddles turn everyday ingredients into brain-teasing puzzles.
 
 ## What gets wetter the more it dries?
 

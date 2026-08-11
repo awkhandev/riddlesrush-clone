@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { InstagramIcon, FacebookIcon, MailIcon } from "./icons";
+import {
+  InstagramIcon,
+  FacebookIcon,
+  TwitterXIcon,
+  PinterestIcon,
+  TikTokIcon,
+  YoutubeIcon,
+  MailIcon,
+} from "./icons";
 
 const footerLinks = [
   {
@@ -32,13 +40,33 @@ const footerLinks = [
 const socialLinks = [
   {
     label: "Instagram",
-    href: "https://www.instagram.com/riddlesrush1/?hl=en",
+    href: "https://www.instagram.com/riddlesrush1",
     icon: <InstagramIcon className="h-4 w-4" />,
   },
   {
+    label: "X (Twitter)",
+    href: "https://x.com/RiddlesRus27l",
+    icon: <TwitterXIcon className="h-4 w-4" />,
+  },
+  {
     label: "Facebook",
-    href: "https://www.facebook.com/profile.php?id=61593173212651",
+    href: "https://www.facebook.com/people/Riddles-rush/61593173212651/",
     icon: <FacebookIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Pinterest",
+    href: "https://www.pinterest.com/riddlesrush0515/",
+    icon: <PinterestIcon className="h-4 w-4" />,
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com/@riddlesrush",
+    icon: <TikTokIcon className="h-4 w-4" />,
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@RiddlesRush",
+    icon: <YoutubeIcon className="h-4 w-4" />,
   },
   {
     label: "Contact",

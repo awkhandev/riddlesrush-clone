@@ -35,6 +35,34 @@ function parseRiddlesFromContent(content: string): Riddle[] {
   return riddles;
 }
 
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+function parseFAQsFromContent(content: string): FAQItem[] {
+  const faqs: FAQItem[] = [];
+  // Look for ### headings under "## Frequently Asked Questions"
+  const faqSection = content.split(/##\s+Frequently Asked Questions/i)[1];
+  if (!faqSection) return faqs;
+
+  // Split by ### headings
+  const qaBlocks = faqSection.split(/(?=^###\s)/m);
+  for (const block of qaBlocks) {
+    if (!block.trim() || !block.startsWith("###")) continue;
+    const qMatch = block.match(/^###\s+(.+)/m);
+    // Answer is everything after the heading until next heading or end
+    const aMatch = block.match(/^###\s+.+\n+([\s\S]*?)(?=\n###|\n##\s|\n\*\*|$)/m);
+    if (qMatch && aMatch) {
+      faqs.push({
+        question: qMatch[1].trim(),
+        answer: aMatch[1].trim(),
+      });
+    }
+  }
+  return faqs;
+}
+
 const features = [
   "Hundreds of riddles with answers",
   "Fun for all ages and skill levels",
@@ -102,6 +130,16 @@ export default async function BlogPostPage({
   const mainRiddles = riddles.slice(0, 7);
   const moreRiddles = riddles.slice(7);
 
+  // Extract FAQs from markdown content (fall back to empty array)
+  const extractedFAQs = parseFAQsFromContent(content);
+
+  // Extract "more riddles" intro from markdown
+  let moreRiddlesIntro = "Here are some extras for when one set of riddles just isn't enough.";
+  const moreSectionMatch = content.match(/##\s+More\s+.+?Riddles\s*\n+([\s\S]*?)(?=\n##\s|\n###\s|\n\d+[.)]\s)/i);
+  if (moreSectionMatch && moreSectionMatch[1].trim()) {
+    moreRiddlesIntro = moreSectionMatch[1].trim();
+  }
+
   // Get related posts from the same category
   const relatedPosts = getBlogPostsByCategory(frontmatter.categorySlug)
     .filter((p) => p.slug !== slug)
@@ -122,7 +160,7 @@ export default async function BlogPostPage({
     }
   }
 
-  const faqs = [
+  const faqs = extractedFAQs.length > 0 ? extractedFAQs : [
     {
       question: `What are ${frontmatter.title.toLowerCase().replace(" with answers", "")}?`,
       answer: `${frontmatter.title.replace(" with Answers", "")} are fun, themed brain teasers perfect for parties, classrooms, and family gatherings. They challenge your thinking while keeping everyone entertained.`,
@@ -145,6 +183,7 @@ export default async function BlogPostPage({
         url={`https://riddles-rush.vercel.app/blog/${frontmatter.slug}`}
         datePublished={frontmatter.publishedAt}
         dateModified={frontmatter.updatedAt}
+        lastReviewed={frontmatter.lastReviewed}
         author={frontmatter.author}
       />
       <FAQPageSchema faqs={faqs} />
@@ -184,7 +223,7 @@ export default async function BlogPostPage({
               {frontmatter.emoji} {frontmatter.title.replace(" with Answers", "")} (With Answers)
             </h2>
             <p className="text-gray-600 mb-6 leading-relaxed">
-              {introText} Test your knowledge with these fun riddles!
+              {introText}
             </p>
 
             {mainRiddles.map((riddle, index) => (
@@ -203,8 +242,7 @@ export default async function BlogPostPage({
                   🧩 More {frontmatter.category.replace(" Riddles", "")} Riddles
                 </h2>
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  Enjoy these bonus riddles! Keep the fun going with more brain
-                  teasers.
+                  {moreRiddlesIntro}
                 </p>
 
                 {moreRiddles.map((riddle, index) => (
@@ -220,41 +258,26 @@ export default async function BlogPostPage({
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="container max-w-4xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-6">
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">
-                What are {frontmatter.title.replace(" with Answers", "").toLowerCase()}?
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                {frontmatter.title.replace(" with Answers", "")} are fun, themed brain teasers
-                perfect for parties, classrooms, and family gatherings.
-              </p>
+        {/* FAQ Section — from markdown content */}
+        {faqs.length > 0 && (
+          <section className="container max-w-4xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-6">
+              {faqs.map((faq, i) => (
+                <div key={i} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                  <h3 className="text-lg font-bold text-gray-900 mb-3">
+                    {faq.question}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              ))}
             </div>
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">
-                Are these riddles suitable for kids?
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Yes! These riddles are family-friendly and perfect for kids of all ages.
-                They&apos;re great for classroom activities, holiday parties, and family game nights.
-              </p>
-            </div>
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">
-                Can I use these riddles for a trivia game?
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Absolutely! These riddles work perfectly as trivia questions. You can use them
-                for parties, family gatherings, or any celebration.
-              </p>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* CTA Section */}
         <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 border-y border-gray-100">

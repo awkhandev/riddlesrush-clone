@@ -66,6 +66,7 @@ interface ArticleSchemaProps {
   image?: string;
   datePublished: string;
   dateModified?: string;
+  lastReviewed?: string;
   author?: string;
 }
 
@@ -76,36 +77,39 @@ export function ArticleSchema({
   image = "/images/og-default.png",
   datePublished,
   dateModified,
+  lastReviewed,
   author = "Patrick Stevens",
 }: ArticleSchemaProps) {
-  return (
-    <JsonLd
-      data={{
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        headline: title,
-        description,
-        url,
-        image: image.startsWith("http")
-          ? image
-          : `https://riddles-rush.vercel.app${image}`,
-        datePublished,
-        dateModified: dateModified || datePublished,
-        author: {
-          "@type": "Person",
-          name: author,
-        },
-        publisher: {
-          "@id": "https://riddles-rush.vercel.app/#organization",
-        },
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": url,
-        },
-        inLanguage: "en-US",
-      }}
-    />
-  );
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description,
+    url,
+    image: image.startsWith("http")
+      ? image
+      : `https://riddles-rush.vercel.app${image}`,
+    datePublished,
+    dateModified: dateModified || datePublished,
+    author: {
+      "@type": "Person",
+      name: author,
+    },
+    publisher: {
+      "@id": "https://riddles-rush.vercel.app/#organization",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+    inLanguage: "en-US",
+  };
+
+  if (lastReviewed) {
+    data.dateReviewed = lastReviewed;
+  }
+
+  return <JsonLd data={data} />;
 }
 
 interface FAQItem {

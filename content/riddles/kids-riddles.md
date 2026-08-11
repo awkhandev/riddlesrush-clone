@@ -1,10 +1,12 @@
 ---
 title: "Kids Riddles Collection"
 slug: "kids-riddles-collection"
-description: "Fun and easy riddles perfect for children."
+description: "Our hand-picked favorite riddles for kids — short, fun, and designed to make young minds think."
 emoji: "🧸"
 category: "kids"
 ---
+
+These are the riddles that kids come back to again and again. Short enough to hold their attention, tricky enough to feel like a real challenge, and funny enough to make them want to share with friends. Pick one, read it aloud, and watch the guessing begin.
 
 ## 1. What Has Hands?
 

@@ -1,10 +1,12 @@
 ---
 title: "Tricky Riddles"
 slug: "tricky-riddles"
-description: "Mind-bending riddles that will stump even the sharpest thinkers."
+description: "The riddles that make you say 'wait, that's it?!' — clever misdirection, double meanings, and answers that hide in plain sight."
 emoji: "🃏"
 category: "tricky"
 ---
+
+These are the riddles that trick your brain into going down the wrong path. They exploit assumptions, play on words, and hide their answers in the most obvious places. If you've ever confidently given the wrong answer and then groaned when you heard the right one, these are for you.
 
 ## 1. Brothers and Sisters
 

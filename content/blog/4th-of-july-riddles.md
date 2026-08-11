@@ -9,6 +9,8 @@ publishedAt: "2025-07-04"
 author: "Patrick Stevens"
 tags: ["holiday", "4th-of-july", "independence-day", "fireworks"]
 ---
+Looking for 🇺🇸 riddles that'll liven up your next celebration? This collection is packed with holiday-themed brain teasers — perfect for party games, classroom activities, or just passing time between festivities. Give them a try and see how many you can solve!
+
 
 ## 🎆 4th of July Riddles
 
@@ -73,3 +75,18 @@ I am the bird on the Great Seal, a symbol of American strength. What am I?
 I am the capital city where the president lives in a white house. What city am I?
 
 **Answer:** Washington, D.C.
+
+---
+
+*Written by Patrick Stevens and the Riddles Rush Team.*
+
+
+## Keep the Fun Going
+
+Enjoyed these riddles? Here are some related collections you might like:
+
+- [Riddles For Science Fairs](/blog/riddles-for-science-fairs)
+- [Easy Riddles For Adults](/blog/easy-riddles-for-adults)
+- [Classroom Thanksgiving Riddles For Elementary](/blog/classroom-thanksgiving-riddles-for-elementary)
+
+Or browse all our [riddle collections](/blog) to find the perfect brain teasers for any occasion.

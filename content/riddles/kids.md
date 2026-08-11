@@ -2,14 +2,14 @@
 title: Kids Riddles Collection
 slug: kids
 description: >-
-  Fun and easy riddles perfect for children. These short puzzles use everyday
-  words, simple logic, and clear punchlines that kids love. Great for family
-  game nights and classroom activities.
+  A curated set of easy riddles designed specifically for younger solvers.
+  Short, fun, and built to make kids think without getting frustrated.
+  Perfect for bedtime, classrooms, and family gatherings.
 emoji: “🧸”
 category: “kids”
 ---
 
-Fun and easy riddles perfect for children. These short puzzles use everyday words, simple logic, and clear punchlines that kids love. Great for family game nights and classroom activities.
+Kids have a natural knack for riddles — they see connections that adults miss. This collection brings together our easiest, most kid-friendly riddles, each one short enough to hold a child's attention but tricky enough to feel like a real puzzle.
 
 ## What has one eye but cannot see?
 

@@ -2,14 +2,14 @@
 title: Sports Riddles Collection
 slug: sports
 description: >-
-  Score big with our collection of sports riddles. These brain teasers use
-  fields, equipment, and game-day language to create clever puzzles. Perfect
-  for sports fans and trivia night enthusiasts.
+  Riddles about the games we love — baseball, basketball, soccer, football,
+  and more. These brain teasers use sports terminology and scenarios to
+  create clever puzzles for fans of all ages.
 emoji: "⚽"
 category: "sports"
 ---
 
-Score big with our collection of sports riddles. These brain teasers use fields, equipment, and game-day language to create clever puzzles. Perfect for sports fans and trivia night enthusiasts.
+Whether you're a weekend warrior or a die-hard fan, sports riddles tap into the shared language of athletics. From baseball diamonds to basketball courts, these brain teasers turn the games you love into puzzles that'll test your knowledge and your wordplay skills.
 
 ## What has a thumb and four fingers but is not alive?
 

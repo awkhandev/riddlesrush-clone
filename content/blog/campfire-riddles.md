@@ -9,6 +9,8 @@ publishedAt: "2025-05-20"
 author: "Patrick Stevens"
 tags: ["campfire", "outdoor", "camping", "family"]
 ---
+Gather everyone around — it's riddle time. This 🔥 collection has something for every age group, from the youngest guesser to the most seasoned puzzle solver. Perfect for family game nights, road trips, or lazy Sunday afternoons.
+
 
 ## 🔥 Campfire Riddles
 
@@ -61,3 +63,18 @@ I pop and crackle in the fire pit. I was once a living tree, now I keep campers 
 Campers drink me hot in the morning. I'm brewed from beans and give energy without warning. What am I?
 
 **Answer:** Coffee
+
+---
+
+*Written by Patrick Stevens and the Riddles Rush Team.*
+
+
+## Keep the Fun Going
+
+Enjoyed these riddles? Here are some related collections you might like:
+
+- [Pirate Ship Mystery Riddles](/blog/pirate-ship-mystery-riddles)
+- [Kids Birthday Riddles](/blog/kids-birthday-riddles)
+- [Music Festival Riddles](/blog/music-festival-riddles)
+
+Or browse all our [riddle collections](/blog) to find the perfect brain teasers for any occasion.

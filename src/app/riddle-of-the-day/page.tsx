@@ -204,8 +204,14 @@ export default function RiddleOfTheDayPage() {
 
             <div className="mt-12 flex flex-wrap justify-center gap-4">
               <Link
-                href="/blog/category"
+                href="/riddle-of-the-day/archive"
                 className="inline-flex items-center justify-center rounded-lg bg-[#7736FE] px-6 py-3 text-base font-bold text-white shadow-sm hover:bg-[#6a2ee6] transition-colors"
+              >
+                Browse Archive
+              </Link>
+              <Link
+                href="/blog/category"
+                className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-base font-bold text-gray-700 shadow-sm hover:bg-gray-50 transition-colors"
               >
                 Browse All Categories
               </Link>

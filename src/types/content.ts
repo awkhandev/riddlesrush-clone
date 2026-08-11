@@ -12,6 +12,7 @@ export interface BlogPostFrontmatter {
   emoji: string;
   publishedAt: string;       // ISO date string e.g. "2025-07-04"
   updatedAt?: string;        // ISO date string
+  lastReviewed?: string;     // ISO date string — freshness signal for Google
   author?: string;
   tags?: string[];
   metaTitle?: string;        // SEO title override

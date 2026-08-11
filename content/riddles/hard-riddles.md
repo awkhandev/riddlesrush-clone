@@ -1,10 +1,12 @@
 ---
 title: "Hard Riddles"
 slug: "hard-riddles"
-description: "Extra challenging riddles for experienced puzzle solvers."
+description: "These riddles don't make it easy. Expect multi-step logic, counterintuitive answers, and puzzles that require genuine reasoning. Not for the faint of heart."
 emoji: "🔥"
 category: "hard"
 ---
+
+Fair warning: these riddles earn their name. They require patience, logic, and the willingness to question your first instinct. Some have answers that seem absurd until you work through the logic. Others hide their solution in a single word you glossed over. Take your time with these — rushing won't help.
 
 ## 1. The Barrel Riddle
 

@@ -10,11 +10,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About | Riddles Rush",
   description:
-    "Learn about RiddlesRush — a simple, pleasant way to find riddles for games, classrooms, parties, and everyday fun. Created by Patrick Stevens.",
+    "The story behind Riddles Rush — a riddle-loving developer's attempt to make the internet a little more fun, one brain teaser at a time.",
   openGraph: {
     title: "About Riddles Rush",
     description:
-      "Learn about RiddlesRush — a simple, pleasant way to find riddles for games, classrooms, parties, and everyday fun.",
+      "The story behind Riddles Rush — a riddle-loving developer's attempt to make the internet a little more fun.",
     url: "https://riddles-rush.vercel.app/about",
     siteName: "Riddles Rush",
     type: "website",
@@ -49,7 +49,7 @@ export default function AboutPage() {
           theme={getThemeBySlug("answers")}
           emoji="🤝"
           title="About RiddlesRush"
-          description="A simple, pleasant place to find riddles for games, classrooms, parties, and everyday fun."
+          description="How a love for brain teasers turned into a website — and why we keep it simple."
           breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
           seed="about"
         />
@@ -59,50 +59,63 @@ export default function AboutPage() {
           <div className="prose prose-lg max-w-none">
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                Why I Built RiddlesRush
+                How Riddles Rush Started
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                I wanted a simple, pleasant way for readers, parents, teachers,
-                students, friends, and families to find riddles for games,
-                classrooms, parties, and everyday fun — without navigating
-                cluttered ad-heavy pages.
+                It started with a simple frustration: every time I searched
+                for riddles online, I landed on pages buried under pop-ups,
+                autoplay videos, and ads for things I&apos;d never buy. All I
+                wanted was a clean list of good riddles. So I decided to build
+                one myself — a place where you could find a great riddle
+                collection without fighting through a maze of clutter.
               </p>
             </section>
 
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                What You&apos;ll Find Here
+                What Makes This Place Different
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Short, readable riddle collections organized for clarity,
-                utility, and easy browsing. The goal is to help you reach a
-                great riddle quickly.
+                Every riddle collection here is organized to get you to the
+                good stuff fast. No account required, no newsletter pop-ups,
+                no &quot;sign up to continue reading&quot; gates. Just riddles
+                — sorted by theme, difficulty, age group, and occasion. Whether
+                you need something for a classroom icebreaker or a family game
+                night, you should be able to find it in a couple of clicks.
               </p>
             </section>
 
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                Who Runs the Site
+                The Person Behind the Keyboard
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                RiddlesRush is created and maintained by Patrick Stevens, a
-                software developer in Washington state who enjoys building
-                useful web apps and simple online tools.
+                I&apos;m Patrick Stevens — a software developer based in
+                Washington state who spends too much time thinking about
+                puzzles and not enough time going outside. Riddles Rush is
+                a passion project born from a genuine love of brain teasers
+                and the belief that a good riddle can brighten anyone&apos;s
+                day. When I&apos;m not coding or curating riddle collections,
+                I&apos;m probably solving logic puzzles or arguing about
+                whether a hot dog is a sandwich.
               </p>
             </section>
 
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                Contact
+                Get in Touch
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Questions, suggestions, or corrections? Reach out anytime.{" "}
+                Got a riddle to share? Found a broken link? Just want to say
+                hi? I read every email and appreciate hearing from fellow
+                riddle enthusiasts. Drop me a line at{" "}
                 <a
                   href="mailto:contact@patrickws.com"
                   className="text-[#7736FE] hover:underline font-medium"
                 >
                   contact@patrickws.com
                 </a>
+                {" "}— I usually reply within a day or two.
               </p>
             </section>
           </div>
@@ -110,11 +123,11 @@ export default function AboutPage() {
           {/* CTA */}
           <div className="mt-16 text-center bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8 sm:p-12 border border-gray-100">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-              Ready to Start Solving?
+              Ready to Put Your Brain to Work?
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto">
-              Dive into our collection of riddles and brain teasers and start
-              challenging yourself today.
+              Enough about us — let&apos;s see what you&apos;ve got. Browse our
+              riddle collections and find something that stumps you.
             </p>
             <Link
               href="/riddles/riddles-with-answers"

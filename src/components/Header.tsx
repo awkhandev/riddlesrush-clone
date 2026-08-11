@@ -166,15 +166,10 @@ export function Header() {
 
         {/* Right side */}
         <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0">
-          <Link
-            href="https://apps.apple.com/be/app/riddles-train-your-brain/id6447545144"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-[#7736FE] px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#6a2ee6] transition-colors"
-          >
+          <span className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-[#7736FE] px-3 py-2 text-sm font-medium text-white shadow-sm cursor-default opacity-80">
             <DownloadIcon className="h-4 w-4" />
-            App
-          </Link>
+            App — Coming Soon
+          </span>
 
           {/* Mobile menu button */}
           <button
@@ -223,16 +218,12 @@ export function Header() {
                 )}
               </div>
             ))}
-            <Link
-              href="https://apps.apple.com/be/app/riddles-train-your-brain/id6447545144"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2.5 text-base font-semibold text-[#7736FE] hover:bg-gray-50 rounded-lg"
-              onClick={() => setMobileOpen(false)}
+            <span
+              className="flex items-center gap-2 px-3 py-2.5 text-base font-semibold text-[#7736FE] rounded-lg opacity-80 cursor-default"
             >
               <DownloadIcon className="h-4 w-4" />
-              Download App
-            </Link>
+              App — Coming Soon
+            </span>
           </div>
         </div>
       )}
