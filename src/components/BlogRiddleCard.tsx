@@ -32,7 +32,7 @@ export function BlogRiddleCard({ question, answer, index }: BlogRiddleCardProps)
         <div className="ml-8">
           <button
             onClick={() => setShowAnswer(!showAnswer)}
-            className="inline-flex items-center space-x-2 text-sm font-medium text-purple-600 hover:text-purple-800 transition-colors duration-200 hover:bg-purple-100 px-3 py-2 rounded-lg lg:text-base"
+            className="inline-flex items-center min-h-[48px] space-x-2 text-sm font-medium text-purple-600 hover:text-purple-800 transition-colors duration-200 hover:bg-purple-100 px-3 py-2 rounded-lg lg:text-base"
           >
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
@@ -60,7 +60,7 @@ export function BlogRiddleCard({ question, answer, index }: BlogRiddleCardProps)
         </p>
         <button
           onClick={() => setShowAnswer(!showAnswer)}
-          className="inline-flex items-center space-x-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-gray-100 lg:text-base"
+          className="inline-flex items-center min-h-[48px] space-x-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-gray-100 lg:text-base"
         >
           <ChevronDown
             className={`w-4 h-4 transition-transform duration-200 ${
@@ -92,7 +92,7 @@ export function BlogRiddleCard({ question, answer, index }: BlogRiddleCardProps)
         <div className="border-t border-amber-200/60 pt-4">
           <button
             onClick={() => setShowAnswer(!showAnswer)}
-            className="inline-flex items-center space-x-2 text-sm font-medium text-amber-700 hover:text-amber-900 transition-colors duration-200 hover:bg-amber-100 px-3 py-2 rounded-lg lg:text-base"
+            className="inline-flex items-center min-h-[48px] space-x-2 text-sm font-medium text-amber-700 hover:text-amber-900 transition-colors duration-200 hover:bg-amber-100 px-3 py-2 rounded-lg lg:text-base"
           >
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
@@ -125,7 +125,7 @@ export function BlogRiddleCard({ question, answer, index }: BlogRiddleCardProps)
       <div className="border-t border-gray-100 pt-4">
         <button
           onClick={() => setShowAnswer(!showAnswer)}
-          className="inline-flex items-center space-x-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200 hover:bg-blue-50 px-3 py-2 rounded-lg lg:text-base"
+          className="inline-flex items-center min-h-[48px] space-x-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200 hover:bg-blue-50 px-3 py-2 rounded-lg lg:text-base"
         >
           <ChevronDown
             className={`w-4 h-4 transition-transform duration-200 ${

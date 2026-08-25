@@ -55,7 +55,7 @@ export function SubmitRiddleSection() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name..."
-                className="border rounded-lg p-2 w-full mb-4 text-lg"
+                className="border rounded-lg p-3 w-full mb-4 text-lg"
               />
 
               <label className="block text-xl font-bold text-gray-700 mb-2">
@@ -66,7 +66,7 @@ export function SubmitRiddleSection() {
                 value={riddle}
                 onChange={(e) => setRiddle(e.target.value)}
                 placeholder="Enter your riddle..."
-                className="border rounded-lg p-2 w-full mb-4 text-lg"
+                className="border rounded-lg p-3 w-full mb-4 text-lg"
                 required
               />
 
@@ -78,14 +78,14 @@ export function SubmitRiddleSection() {
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder="Enter the answer..."
-                className="border rounded-lg p-2 w-full mb-4 text-lg"
+                className="border rounded-lg p-3 w-full mb-4 text-lg"
                 required
               />
 
               <button
                 type="submit"
                 disabled={sending}
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-[#9874e1] sm:hover:scale-105 sm:hover:transform h-10 mt-4 bg-green-500 text-white px-4 py-2 text-lg font-bold"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-[#9874e1] sm:hover:scale-105 sm:hover:transform min-h-[48px] h-12 mt-4 bg-green-500 text-white px-4 py-2 text-lg font-bold"
               >
                 {submitted ? "Submitted! ✓" : sending ? "Sending..." : "Submit Riddle"}
               </button>

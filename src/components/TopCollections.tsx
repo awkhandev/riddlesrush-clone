@@ -74,7 +74,7 @@ export function TopCollections() {
           </p>
           <Link
             href="/blog"
-            className="text-[#7736FE] font-medium hover:underline"
+            className="inline-flex items-center min-h-[48px] text-[#7736FE] font-medium hover:underline"
           >
             View all collections
           </Link>

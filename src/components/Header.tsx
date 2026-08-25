@@ -174,7 +174,7 @@ export function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex items-center mx-2 px-1 md:hidden min-h-[44px] min-w-[44px]"
+            className="flex items-center mx-2 px-1 md:hidden min-h-[48px] min-w-[48px]"
             aria-label="Toggle menu"
           >
             {mobileOpen ? (
@@ -194,7 +194,7 @@ export function Header() {
               <div key={link.label}>
                 <Link
                   href={link.href}
-                  className="block px-3 py-2.5 text-base font-semibold text-gray-700 hover:text-[#7736FE] hover:bg-gray-50 rounded-lg"
+                  className="flex items-center min-h-[48px] px-3 text-base font-semibold text-gray-700 hover:text-[#7736FE] hover:bg-gray-50 rounded-lg"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
@@ -205,7 +205,7 @@ export function Header() {
                       <Link
                         key={item.label}
                         href={item.href}
-                        className="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-[#7736FE] hover:bg-gray-50 rounded-lg"
+                        className="flex items-center gap-3 px-3 py-2 min-h-[48px] text-sm text-gray-600 hover:text-[#7736FE] hover:bg-gray-50 rounded-lg"
                         onClick={() => setMobileOpen(false)}
                       >
                         <span className="text-lg flex-shrink-0">

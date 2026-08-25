@@ -72,13 +72,13 @@ export function HeroSection() {
                 <div className="flex justify-center space-x-4 pt-3 w-full mb-8">
                   <button
                     onClick={() => setShowAnswer(!showAnswer)}
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-[#9874e1] sm:hover:scale-105 sm:hover:transform h-10 px-4 py-2 text-lg sm:text-xl font-bold"
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-[#9874e1] sm:hover:scale-105 sm:hover:transform min-h-[48px] h-12 px-4 py-2 text-lg sm:text-xl font-bold"
                   >
                     {showAnswer ? "Hide Answer" : "Show Answer"}
                   </button>
                   <button
                     onClick={handleNextRiddle}
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground sm:hover:scale-105 sm:hover:transform h-10 px-4 py-2 bg-green-700 hover:bg-green-600 text-lg sm:text-xl font-bold"
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground sm:hover:scale-105 sm:hover:transform min-h-[48px] h-12 px-4 py-2 bg-green-700 hover:bg-green-600 text-lg sm:text-xl font-bold"
                   >
                     Next Riddle
                   </button>

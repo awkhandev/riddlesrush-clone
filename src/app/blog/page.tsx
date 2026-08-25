@@ -136,7 +136,7 @@ export default function BlogPage() {
               {/* Page 2 */}
               <Link
                 href="/blog/page/2"
-                className="px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
               >
                 2
               </Link>
@@ -144,7 +144,7 @@ export default function BlogPage() {
               {/* Page 3 */}
               <Link
                 href="/blog/page/3"
-                className="px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
               >
                 3
               </Link>
@@ -154,7 +154,7 @@ export default function BlogPage() {
               {/* Last page */}
               <Link
                 href={`/blog/page/${totalPages}`}
-                className="px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
               >
                 {totalPages}
               </Link>
@@ -162,7 +162,7 @@ export default function BlogPage() {
               {/* Next */}
               <Link
                 href="/blog/page/2"
-                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center min-h-[48px] gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 Next
                 <ChevronRight className="w-4 h-4" />

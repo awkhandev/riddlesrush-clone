@@ -110,7 +110,7 @@ export default async function BlogCategoryPage({
             </p>
             <Link
               href="/blog/category"
-              className="inline-flex items-center text-[#7736FE] font-medium hover:underline"
+              className="inline-flex items-center min-h-[48px] text-[#7736FE] font-medium hover:underline"
             >
               Browse all categories
               <svg
@@ -168,14 +168,14 @@ export default async function BlogCategoryPage({
             <nav className="flex items-center gap-1.5 text-sm text-gray-500">
               <Link
                 href="/"
-                className="hover:text-[#7736FE] transition-colors"
+                className="inline-flex items-center min-h-[48px] hover:text-[#7736FE] transition-colors"
               >
                 Home
               </Link>
               <span>/</span>
               <Link
                 href="/blog/category"
-                className="hover:text-[#7736FE] transition-colors"
+                className="inline-flex items-center min-h-[48px] hover:text-[#7736FE] transition-colors"
               >
                 Categories
               </Link>

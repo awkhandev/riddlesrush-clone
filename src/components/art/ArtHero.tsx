@@ -76,7 +76,7 @@ export function ArtHero({
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
-                    className="rounded transition-colors hover:text-white hover:underline"
+                    className="inline-flex items-center min-h-[48px] rounded transition-colors hover:text-white hover:underline"
                   >
                     {crumb.label}
                   </Link>

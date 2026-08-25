@@ -65,7 +65,7 @@ const socialLinks = [
   },
   {
     label: "YouTube",
-    href: "https://www.youtube.com/@RiddlesRush",
+    href: "https://www.youtube.com/@RiddlesRush-j5s",
     icon: <YoutubeIcon className="h-4 w-4" />,
   },
   {
@@ -90,7 +90,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-700 underline-offset-2 decoration-gray-400 hover:text-gray-900 hover:underline"
+                      className="inline-flex items-center min-h-[48px] text-sm text-gray-700 underline-offset-2 decoration-gray-400 hover:text-gray-900 hover:underline"
                     >
                       {link.label}
                     </Link>
@@ -116,7 +116,7 @@ export function Footer() {
                         ? "noopener noreferrer"
                         : undefined
                     }
-                    className="group inline-flex items-center gap-2.5 text-sm font-medium text-gray-700 hover:text-gray-900 hover:underline"
+                    className="group inline-flex items-center min-h-[48px] gap-2.5 text-sm font-medium text-gray-700 hover:text-gray-900 hover:underline"
                   >
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-700 text-white group-hover:bg-gray-600">
                       {link.icon}
@@ -142,7 +142,7 @@ export function Footer() {
                     ? "noopener noreferrer"
                     : undefined
                 }
-                className="group inline-flex items-center gap-2.5 font-medium hover:text-gray-900 hover:underline"
+                className="group inline-flex items-center min-h-[48px] gap-2.5 font-medium hover:text-gray-900 hover:underline"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-700 text-white group-hover:bg-gray-600">
                   {link.icon}
@@ -159,7 +159,7 @@ export function Footer() {
             © 2026{" "}
             <Link
               href="/"
-              className="text-gray-700 underline-offset-2 hover:text-gray-900 hover:underline"
+              className="inline-flex items-center min-h-[48px] text-gray-700 underline-offset-2 hover:text-gray-900 hover:underline"
             >
               Riddles Rush
             </Link>

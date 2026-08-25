@@ -16,7 +16,7 @@ export function TriviaSection() {
             href="https://www.triviabrain.io/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block text-[#7736FE] hover:text-purple-700 font-semibold text-lg sm:text-xl hover:underline transition-colors"
+            className="inline-flex items-center min-h-[48px] text-[#7736FE] hover:text-purple-700 font-semibold text-lg sm:text-xl hover:underline transition-colors"
           >
             TriviaBrain →
           </Link>

@@ -44,7 +44,7 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
       <button
         onClick={() => navigateTo(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 transition-colors"
+        className="inline-flex items-center gap-1 rounded-lg min-h-[48px] px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 transition-colors"
       >
         <ChevronLeft className="h-4 w-4" />
         Previous
@@ -59,7 +59,7 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
           <button
             key={page}
             onClick={() => navigateTo(page)}
-            className={`min-w-[36px] rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+            className={`min-h-[48px] min-w-[48px] rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
               page === currentPage
                 ? "bg-[#7736FE] text-white"
                 : "text-gray-700 hover:bg-gray-100"
@@ -73,7 +73,7 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
       <button
         onClick={() => navigateTo(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 transition-colors"
+        className="inline-flex items-center gap-1 rounded-lg min-h-[48px] px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 transition-colors"
       >
         Next
         <ChevronRight className="h-4 w-4" />

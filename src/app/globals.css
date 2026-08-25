@@ -135,6 +135,11 @@
   }
   html {
     @apply font-sans scroll-smooth;
+    /* Prevent any decorative/edge element from creating horizontal
+       overflow on small screens (PageSpeed "content sized for viewport"). */
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 }
 

@@ -34,7 +34,7 @@ export function RiddleCard({ question, answer, slug, index }: RiddleCardProps) {
           e.stopPropagation();
           setRevealed((prev) => !prev);
         }}
-        className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-[#7736FE] transition-colors"
+        className="mt-4 inline-flex items-center min-h-[48px] gap-2 text-sm font-medium text-gray-600 hover:text-[#7736FE] transition-colors"
       >
         {revealed ? (
           <>

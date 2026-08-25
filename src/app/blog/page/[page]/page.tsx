@@ -117,7 +117,7 @@ export default async function BlogPaginatedPage({ params }: { params: Promise<{ 
               {currentPage > 1 && (
                 <Link
                   href={currentPage === 2 ? "/blog" : `/blog/page/${currentPage - 1}`}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center min-h-[48px] gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   Previous
@@ -144,7 +144,7 @@ export default async function BlogPaginatedPage({ params }: { params: Promise<{ 
                   <Link
                     key={pageNum}
                     href={href}
-                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    className={`inline-flex items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                       isCurrent
                         ? "bg-[#7736FE] text-white"
                         : "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
@@ -158,7 +158,7 @@ export default async function BlogPaginatedPage({ params }: { params: Promise<{ 
               {currentPage < totalPages && (
                 <Link
                   href={`/blog/page/${currentPage + 1}`}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center min-h-[48px] gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   Next
                   <ChevronRight className="w-4 h-4" />

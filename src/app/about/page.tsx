@@ -111,7 +111,7 @@ export default function AboutPage() {
                 riddle enthusiasts. Drop me a line at{" "}
                 <a
                   href="mailto:contact@patrickws.com"
-                  className="text-[#7736FE] hover:underline font-medium"
+                  className="inline-flex items-center min-h-[48px] text-[#7736FE] hover:underline font-medium"
                 >
                   contact@patrickws.com
                 </a>

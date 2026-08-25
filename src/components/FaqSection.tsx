@@ -62,7 +62,7 @@ export function FaqSection() {
                 onClick={() =>
                   setOpenIndex(openIndex === index ? null : index)
                 }
-                className="flex items-center justify-between w-full text-left"
+                className="flex items-center justify-between w-full text-left min-h-[48px] py-3"
               >
                 <h3 className="text-2xl sm:text-3xl font-semibold mb-3 text-gray-800 pr-4">
                   {faq.question}
@@ -81,7 +81,7 @@ export function FaqSection() {
                   {faq.link && (
                     <Link
                       href={faq.link.href}
-                      className="inline-block mt-2 text-[#7736FE] hover:text-purple-700 font-medium hover:underline"
+                      className="inline-flex items-center min-h-[48px] mt-2 text-[#7736FE] hover:text-purple-700 font-medium hover:underline"
                     >
                       {faq.link.label} →
                     </Link>
@@ -95,7 +95,7 @@ export function FaqSection() {
         <div className="text-center mt-8">
           <Link
             href="/faq"
-            className="inline-flex items-center justify-center text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 sm:hover:scale-105 sm:hover:transform h-10 bg-[#7736FE] hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center justify-center text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 sm:hover:scale-105 sm:hover:transform min-h-[48px] h-12 bg-[#7736FE] hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
           >
             View All FAQs
           </Link>
