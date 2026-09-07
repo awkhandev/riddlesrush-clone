@@ -116,11 +116,8 @@ export function Footer() {
                         ? "noopener noreferrer"
                         : undefined
                     }
-                    className="group inline-flex items-center min-h-[48px] gap-2.5 text-sm font-medium text-gray-700 hover:text-gray-900 hover:underline"
+                    className="inline-flex items-center min-h-[48px] text-sm text-gray-700 underline-offset-2 decoration-gray-400 hover:text-gray-900 hover:underline"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-700 text-white group-hover:bg-gray-600">
-                      {link.icon}
-                    </span>
                     {link.label}
                   </Link>
                 </li>

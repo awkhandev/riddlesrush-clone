@@ -1,198 +1,508 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ArtHero } from "@/components/art";
-import { getThemeBySlug } from "@/lib/visual";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Riddles Rush",
+  title: "Privacy Policy | Your Privacy Matters | Riddles Rush",
   description:
-    "How Riddles Rush collects, uses, and protects your information. We keep things simple — no accounts, no tracking nonsense.",
+    "At RiddlesRush.com, your privacy is a priority. Discover how we handle your personal data and protect your information.",
+  openGraph: {
+    title: "Riddles Rush",
+    description:
+      "Engage your mind with Riddles Rush! Packed with challenging puzzles and brain teasers, helping to improve your problem-solving skills.",
+    url: "https://www.riddlesrush.com",
+    siteName: "Riddles Rush",
+    type: "website",
+  },
   alternates: {
-    canonical: "https://riddles-rush.vercel.app/privacy-policy",
+    canonical: "https://www.riddlesrush.com/privacy-policy",
   },
 };
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">
-        {/* Hero */}
-        <ArtHero
-          theme={getThemeBySlug("family")}
-          emoji="🛡️"
-          title="Privacy Policy"
-          description="The short version: we keep things simple and don't collect much. Here are the details."
-          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]}
-          seed="privacy"
-        />
+      <main className="grow">
+        <div className="mx-auto px-5 lg:px-0 mb-24 flex max-w-4xl flex-col space-y-4 pt-6 sm:pt-24">
+          <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
+          <p className="text-sm text-gray-600">Effective Date: May 9th, 2026</p>
+          <div className="mt-6 space-y-4 text-gray-700">
+            <p>
+              This Privacy Policy describes Our policies and procedures on the collection,
+              use and disclosure of Your information when You use the Service and tells You
+              about Your privacy rights and how the law protects You.
+            </p>
+            <p>
+              We use Your Personal data to provide and improve the Service. By using the
+              Service, You agree to the collection and use of information in accordance with
+              this Privacy Policy.
+            </p>
 
-        <div className="container max-w-4xl py-12 mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-sm text-gray-500 mb-10 mt-6">
-            Last updated: August 10, 2026
-          </p>
+            <h2 className="text-base font-bold text-gray-900 pt-2">Interpretation and Definitions</h2>
+            <h2 className="text-base font-bold text-gray-900">Interpretation</h2>
+            <p>
+              The words of which the initial letter is capitalized have meanings defined
+              under the following conditions. The following definitions shall have the same
+              meaning regardless of whether they appear in singular or in plural.
+            </p>
 
-          {/* Content */}
-          <div className="space-y-10">
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                1. What We Collect (Spoiler: Not Much)
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
-                Riddles Rush was built with one thing in mind: let people enjoy
-                riddles without jumping through hoops. You don&apos;t need to
-                sign up, create a profile, or hand over your email to browse
-                our collections. We keep it that way on purpose.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Like most websites, our hosting platform automatically logs
-                some basic technical details — things like your browser type,
-                what pages you visited, and roughly when you visited them. This
-                is standard server logging, not active tracking. It helps us
-                spot problems and understand which riddle collections people
-                enjoy most.
-              </p>
-            </section>
+            <h2 className="text-base font-bold text-gray-900">Definitions</h2>
+            <p>For the purposes of this Privacy Policy:</p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <p>
+                  <strong>Affiliate</strong> means an entity that controls, is controlled by
+                  or is under common control with a party, where &quot;control&quot; means
+                  ownership of 50% or more of the shares, equity interest or other securities
+                  entitled to vote for election of directors or other managing authority.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Company</strong> (referred to as either &quot;the Company&quot;,
+                  &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to
+                  RiddlesRush.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Cookies</strong> are small files that are placed on Your computer,
+                  mobile device or any other device by a website, containing the details of
+                  Your browsing history on that website among its many uses.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Country</strong> refers to: Washington, United States
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Device</strong> means any device that can access the Service such as
+                  a computer, a cellphone or a digital tablet.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Personal Data</strong> is any information that relates to an
+                  identified or identifiable individual.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Service</strong> refers to the Website.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Service Provider</strong> means any natural or legal person who
+                  processes the data on behalf of the Company. It refers to third-party
+                  companies or individuals employed by the Company to facilitate the Service,
+                  to provide the Service on behalf of the Company, to perform services related
+                  to the Service or to assist the Company in analyzing how the Service is used.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Usage Data</strong> refers to data collected automatically, either
+                  generated by the use of the Service or from the Service infrastructure
+                  itself (for example, the duration of a page visit).
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Website</strong> refers to RiddlesRush, accessible from{" "}
+                  <a className="underline hover:text-gray-900" target="_blank" rel="noopener noreferrer" href="/">
+                    riddlesrush.com
+                  </a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>You</strong> means the individual accessing or using the Service, or
+                  the company, or other legal entity on behalf of which such individual is
+                  accessing or using the Service, as applicable.
+                </p>
+              </li>
+            </ul>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                2. What We Do With That Info
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
-                The handful of technical details we collect serve exactly one
-                purpose: keeping Riddles Rush running smoothly and making it
-                better over time. If we notice that a particular riddle
-                collection gets a lot of traffic, we might add more riddles to
-                it. If a page loads slowly for certain devices, we fix it.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                We&apos;re not in the data-selling business — we&apos;re in
-                the riddle business. Your information stays with us, and we
-                never share, sell, or trade it with advertisers, data brokers,
-                or anyone else. Period.
-              </p>
-            </section>
+            <h2 className="text-base font-bold text-gray-900 pt-2">Collecting and Using Your Personal Data</h2>
+            <h2 className="text-base font-bold text-gray-900">Types of Data Collected</h2>
+            <h3 className="text-sm font-bold text-gray-800">Personal Data</h3>
+            <p>
+              While using Our Service, We may ask You to provide Us with certain personally
+              identifiable information that can be used to contact or identify You. Personally
+              identifiable information may include, but is not limited to:
+            </p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><p>Email address</p></li>
+              <li><p>First name and last name</p></li>
+              <li><p>Usage Data</p></li>
+            </ul>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                3. Cookies — The Minimal Kind
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
-                Riddles Rush uses only the cookies that are strictly necessary
-                for the website to function — things like keeping track of
-                your session while you browse. We don&apos;t use
-                advertising cookies or cross-site trackers. If we ever add
-                analytics (to help us understand which riddles are most
-                popular), those tools collect anonymous data only.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                You&apos;re always free to adjust your browser&apos;s cookie
-                settings. Turning off cookies might affect some site
-                functionality, but you&apos;ll still be able to read and enjoy
-                all our riddle collections.
-              </p>
-            </section>
+            <h3 className="text-sm font-bold text-gray-800 pt-2">Usage Data</h3>
+            <p>Usage Data is collected automatically when using the Service.</p>
+            <p>
+              Usage Data may include information such as Your Device&apos;s Internet Protocol
+              address (e.g. IP address), browser type, browser version, the pages of our
+              Service that You visit, the time and date of Your visit, the time spent on those
+              pages, unique device identifiers and other diagnostic data.
+            </p>
+            <p>
+              When You access the Service by or through a mobile device, We may collect
+              certain information automatically, including, but not limited to, the type of
+              mobile device You use, Your mobile device unique ID, the IP address of Your
+              mobile device, Your mobile operating system, the type of mobile Internet browser
+              You use, unique device identifiers and other diagnostic data.
+            </p>
+            <p>
+              We may also collect information that Your browser sends whenever You visit our
+              Service or when You access the Service by or through a mobile device.
+            </p>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                4. Outside Services We Rely On
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
-                Riddles Rush is hosted on Vercel, which handles the technical
-                side of serving our pages to you. Vercel has its own privacy
-                practices, which you can review on their website. We also
-                occasionally link out to other sites — when you leave Riddles
-                Rush and visit somewhere else, their privacy rules apply, not
-                ours.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                We pick our hosting and tooling partners carefully, but
-                we can&apos;t control what third-party services do with data
-                they collect independently. We encourage you to check their
-                policies if you&apos;re curious.
-              </p>
-            </section>
+            <h3 className="text-sm font-bold text-gray-800 pt-2">Tracking Technologies and Cookies</h3>
+            <p>
+              We use Cookies and similar tracking technologies to track the activity on Our
+              Service and store certain information. Tracking technologies used are beacons,
+              tags, and scripts to collect and track information and to improve and analyze Our
+              Service. The technologies We use may include:
+            </p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <strong>Cookies or Browser Cookies.</strong> A cookie is a small file placed on
+                Your Device. You can instruct Your browser to refuse all Cookies or to indicate
+                when a Cookie is being sent. However, if You do not accept Cookies, You may not
+                be able to use some parts of our Service. Unless you have adjusted Your browser
+                setting so that it will refuse Cookies, our Service may use Cookies.
+              </li>
+              <li>
+                <strong>Web Beacons.</strong> Certain sections of our Service and our emails
+                may contain small electronic files known as web beacons (also referred to as
+                clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for
+                example, to count users who have visited those pages or opened an email and for
+                other related website statistics (for example, recording the popularity of a
+                certain section and verifying system and server integrity).
+              </li>
+            </ul>
+            <p>
+              Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent
+              Cookies remain on Your personal computer or mobile device when You go offline,
+              while Session Cookies are deleted as soon as You close Your web browser.
+            </p>
+            <p>We use both Session and Persistent Cookies for the purposes set out below:</p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <p><strong>Necessary / Essential Cookies</strong></p>
+                <p>Type: Session Cookies</p>
+                <p>Administered by: Us</p>
+                <p>
+                  Purpose: These Cookies are essential to provide the Website and enable basic
+                  features such as page navigation, security, consent preferences, and service
+                  functionality. Without these Cookies, some parts of the Website may not work
+                  properly.
+                </p>
+              </li>
+              <li>
+                <p><strong>Cookies Policy / Notice Acceptance Cookies</strong></p>
+                <p>Type: Persistent Cookies</p>
+                <p>Administered by: Us</p>
+                <p>
+                  Purpose: These Cookies identify if users have accepted the use of cookies on
+                  the Website.
+                </p>
+              </li>
+              <li>
+                <p><strong>Functionality Cookies</strong></p>
+                <p>Type: Persistent Cookies</p>
+                <p>Administered by: Us</p>
+                <p>
+                  Purpose: These Cookies allow us to remember choices You make when using the
+                  Website, such as consent preferences or display preferences. The purpose of
+                  these Cookies is to provide a more consistent experience.
+                </p>
+              </li>
+            </ul>
+            <p>
+              For more information about the cookies we use and your choices regarding
+              cookies, please visit our Cookies Policy or the Cookies section of our Privacy
+              Policy.
+            </p>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                5. How We Keep Things Secure
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
-                Every page on Riddles Rush is served over HTTPS, which means
-                the connection between your browser and our server is
-                encrypted. This prevents anyone from snooping on your activity
-                while you&apos;re here.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                That said, no website can guarantee 100% security — the
-                internet doesn&apos;t work that way. We do our best to protect
-                the limited information we have, but we want to be honest about
-                what &quot;reasonable measures&quot; actually means in practice.
-              </p>
-            </section>
+            <h2 className="text-base font-bold text-gray-900 pt-2">Use of Your Personal Data</h2>
+            <p>The Company may use Personal Data for the following purposes:</p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li><p><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</p></li>
+              <li><p><strong>For the performance of a contract:</strong> the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</p></li>
+              <li><p><strong>To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application&apos;s push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</p></li>
+              <li><p><strong>To provide You</strong> with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</p></li>
+              <li><p><strong>To manage Your requests:</strong> To attend and manage Your requests to Us.</p></li>
+              <li><p><strong>For business transfers:</strong> We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.</p></li>
+              <li><p><strong>For other purposes:</strong> We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</p></li>
+            </ul>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                6. Kids and Riddles Go Hand in Hand
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
-                A big part of why we built Riddles Rush is for families,
-                teachers, and kids to enjoy together. We never ask children
-                for personal information, and we don&apos;t knowingly collect
-                data from anyone under 13.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                If you&apos;re a parent or guardian and think your child
-                somehow shared personal information with us (it shouldn&apos;t
-                be possible, but just in case), drop us an email and
-                we&apos;ll sort it out right away.
-              </p>
-            </section>
+            <p>We may share Your personal information in the following situations:</p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li><strong>With Service Providers:</strong> We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to contact You.</li>
+              <li><strong>For business transfers:</strong> We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</li>
+              <li><strong>With Affiliates:</strong> We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.</li>
+              <li><strong>With business partners:</strong> We may share Your information with Our business partners to offer You certain products, services or promotions.</li>
+              <li><strong>Public submissions:</strong> if You submit content to the Website, such as a riddle, approved submissions may be published publicly. Users are asked not to include personal information in submissions.</li>
+              <li><strong>With Your consent:</strong> We may disclose Your personal information for any other purpose with Your consent.</li>
+            </ul>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                7. When Things Change
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
-                This policy might get updated if our practices change or if
-                new privacy laws require it. When that happens, we&apos;ll
-                update the &quot;Last updated&quot; date at the top of this
-                page so you know exactly when things shifted.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                We recommend checking back occasionally — not because we plan
-                any dramatic changes, but because it&apos;s good practice with
-                any website you visit regularly. Continuing to use Riddles Rush
-                after we update this page means you&apos;re cool with the new
-                version.
-              </p>
-            </section>
+            <h2 className="text-base font-bold text-gray-900 pt-2">Analytics</h2>
+            <p>
+              We use Google Analytics to help us understand how visitors use our website.
+              Google Analytics may collect information such as pages visited, time spent on
+              pages, browser and device information, approximate location, referring
+              websites or search engines, and other usage information.
+            </p>
+            <p>
+              Google may process this information to provide analytics reports, measure
+              website performance, improve its services, and support other purposes described
+              in Google&apos;s policies.
+            </p>
+            <p>
+              You can learn more about how Google uses information from sites and apps that
+              use Google services here:{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-900"
+                href="https://policies.google.com/technologies/partner-sites"
+              >
+                https://policies.google.com/technologies/partner-sites
+              </a>.
+            </p>
+            <p>
+              You can opt out of Google Analytics by using the Google Analytics Opt-out
+              Browser Add-on:{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-900"
+                href="https://tools.google.com/dlpage/gaoptout"
+              >
+                https://tools.google.com/dlpage/gaoptout
+              </a>.
+            </p>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                8. Got Questions?
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
-                If anything in this policy is unclear, or if you have
-                questions about how we handle your information, just reach
-                out. We&apos;re a small team and we actually read our emails.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Drop us a line at{" "}
-                <a
-                  href="mailto:contact@patrickws.com"
-                  className="inline-flex items-center min-h-[48px] text-[#7736FE] hover:underline font-medium"
-                >
-                  contact@patrickws.com
-                </a>
-                {" "}— we&apos;ll get back to you as soon as we can.
-              </p>
-            </section>
+            <h2 className="text-base font-bold text-gray-900 pt-2">Mediavine Grow</h2>
+            <p>
+              We may use Grow by Mediavine to provide features such as content
+              recommendations, saving or bookmarking content, sharing tools, audience
+              engagement features, and related analytics. Grow may collect or process
+              information such as usage data, device/browser information, IP address, cookie
+              identifiers, and interactions with Grow features.
+            </p>
+            <p>
+              You can learn more about Mediavine&apos;s privacy practices here:{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-900"
+                href="https://www.mediavine.com/privacy-policy/"
+              >
+                https://www.mediavine.com/privacy-policy/
+              </a>.
+            </p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Advertising and Google AdSense</h2>
+            <p>
+              We use Google AdSense to display advertisements on our website. Third-party
+              vendors, including Google, may use cookies, web beacons, device identifiers, and
+              similar technologies to serve ads, measure ad performance, prevent fraud and
+              abuse, and personalize ads where permitted.
+            </p>
+            <p>
+              Google&apos;s use of advertising cookies enables Google and its partners to serve
+              ads to users based on visits to this website and other websites on the Internet.
+            </p>
+            <p>
+              You may opt out of personalized advertising by visiting Google&apos;s Ads
+              Settings:{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-900"
+                href="https://www.google.com/settings/ads"
+              >
+                https://www.google.com/settings/ads
+              </a>.
+            </p>
+            <p>
+              You can learn more about how Google uses information from sites and apps that
+              use Google services here:{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-900"
+                href="https://policies.google.com/technologies/partner-sites"
+              >
+                https://policies.google.com/technologies/partner-sites
+              </a>.
+            </p>
+            <p>
+              Visitors in certain regions, including the EEA, UK, and Switzerland, may be
+              shown a consent message that allows them to accept, reject, or customize certain
+              advertising and analytics choices. We use Google&apos;s consent tools to help
+              communicate these choices to Google services such as Google AdSense and Google
+              Analytics.
+            </p>
+            <p>You can also manage or disable cookies through your browser settings.</p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Retention of Your Personal Data</h2>
+            <p>
+              The Company will retain Your Personal Data only for as long as is necessary for
+              the purposes set out in this Privacy Policy. We will retain and use Your
+              Personal Data to the extent necessary to comply with our legal obligations (for
+              example, if we are required to retain your data to comply with applicable
+              laws), resolve disputes, and enforce our legal agreements and policies.
+            </p>
+            <p>
+              The Company will also retain Usage Data for internal analysis purposes. Usage
+              Data is generally retained for a shorter period of time, except when this data
+              is used to strengthen the security or to improve the functionality of Our
+              Service, or We are legally obligated to retain this data for longer time
+              periods.
+            </p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Transfer of Your Personal Data</h2>
+            <p>
+              Your information, including Personal Data, is processed at the Company&apos;s
+              operating offices and in any other places where the parties involved in the
+              processing are located. It means that this information may be transferred to,
+              and maintained on, computers located outside of Your state, province, country or
+              other governmental jurisdiction where the data protection laws may differ than
+              those from Your jurisdiction.
+            </p>
+            <p>
+              Your consent to this Privacy Policy followed by Your submission of such
+              information represents Your agreement to that transfer.
+            </p>
+            <p>
+              The Company will take all steps reasonably necessary to ensure that Your data is
+              treated securely and in accordance with this Privacy Policy and no transfer of
+              Your Personal Data will take place to an organization or a country unless there
+              are adequate controls in place including the security of Your data and other
+              personal information.
+            </p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Delete Your Personal Data</h2>
+            <p>
+              You have the right to delete or request that We assist in deleting the Personal
+              Data that We have collected about You.
+            </p>
+            <p>
+              Our Service may give You the ability to delete certain information about You
+              from within the Service.
+            </p>
+            <p>
+              You may contact Us to request access to, correction of, or deletion of any
+              personal information that You have provided to Us.
+            </p>
+            <p>
+              Please note, however, that We may need to retain certain information when we
+              have a legal obligation or lawful basis to do so.
+            </p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Disclosure of Your Personal Data</h2>
+            <h3 className="text-sm font-bold text-gray-800">Business Transactions</h3>
+            <p>
+              If the Company is involved in a merger, acquisition or asset sale, Your Personal
+              Data may be transferred. We will provide notice before Your Personal Data is
+              transferred and becomes subject to a different Privacy Policy.
+            </p>
+            <h3 className="text-sm font-bold text-gray-800 pt-2">Law enforcement</h3>
+            <p>
+              Under certain circumstances, the Company may be required to disclose Your
+              Personal Data if required to do so by law or in response to valid requests by
+              public authorities (e.g. a court or a government agency).
+            </p>
+            <h3 className="text-sm font-bold text-gray-800 pt-2">Other legal requirements</h3>
+            <p>
+              The Company may disclose Your Personal Data in the good faith belief that such
+              action is necessary to:
+            </p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Comply with a legal obligation</li>
+              <li>Protect and defend the rights or property of the Company</li>
+              <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
+              <li>Protect the personal safety of Users of the Service or the public</li>
+              <li>Protect against legal liability</li>
+            </ul>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Security of Your Personal Data</h2>
+            <p>
+              The security of Your Personal Data is important to Us, but remember that no
+              method of transmission over the Internet, or method of electronic storage is
+              100% secure. While We strive to use commercially acceptable means to protect
+              Your Personal Data, We cannot guarantee its absolute security.
+            </p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Children&apos;s Privacy</h2>
+            <p>
+              Our Service is intended for a general audience and is not directed specifically
+              at children under the age of 13. We do not knowingly collect or solicit
+              personally identifiable information from children under 13. We do not require
+              users to submit names, emails, or other identifying data when using the Service,
+              including when submitting riddles.
+            </p>
+            <p>
+              If you are under 13, please do not submit any personal information through the
+              Service. If you are a parent or guardian and you believe that your child has
+              provided us with personal information, please contact us immediately. If we
+              discover that we have collected personal data from a child under 13 without
+              parental consent, we will promptly delete that data.
+            </p>
+            <p>
+              All riddle submissions are moderated before publication. Users are asked not to
+              include any personal information in their submissions.
+            </p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Links to Other Websites</h2>
+            <p>
+              Our Service may contain links to other websites that are not operated by Us. If
+              You click on a third party link, You will be directed to that third party&apos;s
+              site. We strongly advise You to review the Privacy Policy of every site You
+              visit.
+            </p>
+            <p>
+              We have no control over and assume no responsibility for the content, privacy
+              policies or practices of any third party sites or services.
+            </p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Changes to this Privacy Policy</h2>
+            <p>
+              We may update Our Privacy Policy from time to time. We will notify You of any
+              changes by posting the new Privacy Policy on this page.
+            </p>
+            <p>
+              You are advised to review this Privacy Policy periodically for any changes.
+              Changes to this Privacy Policy are effective when they are posted on this page.
+            </p>
+            <p>
+              We reserve the right to modify this Privacy Policy at any time. Any changes will
+              be effective immediately upon posting of the revised Privacy Policy on our
+              website. Your continued use of the website after any such changes constitutes
+              your acceptance of the revised Privacy Policy.
+            </p>
+
+            <h2 className="text-base font-bold text-gray-900 pt-2">Contact Us</h2>
+            <p>
+              If you have any questions about this Privacy Policy, You can contact us:
+            </p>
+            <p>
+              By email:{" "}
+              <a className="underline hover:text-gray-900" href="mailto:contact@patrickws.com">
+                contact@patrickws.com
+              </a>
+            </p>
           </div>
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

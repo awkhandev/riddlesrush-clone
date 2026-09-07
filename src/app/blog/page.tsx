@@ -1,85 +1,149 @@
 import Link from "next/link";
-import { Tag, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { BookOpen, Calendar, Tag, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ArtHero, ArtThumb } from "@/components/art";
-import { getPaginatedBlogPosts } from "@/lib/content";
-import { CollectionPageSchema } from "@/components/seo/JsonLd";
-import { getBlogTheme } from "@/lib/visual";
+import { getPaginatedBlogPosts, getAllCategories } from "@/lib/content";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Riddle Collections | Browse 470+ Riddle Sets by Theme",
+  title: "Riddle Collections | Riddles Rush",
   description:
-    "Browse hundreds of riddle collections by theme, age, difficulty, and occasion. Find riddles for kids, adults, families, holidays, and more.",
-  openGraph: {
-    title: "Riddle Collections | Riddles Rush",
-    description:
-      "Browse hundreds of riddle collections by theme, age, difficulty, and occasion.",
-    url: "https://riddles-rush.vercel.app/blog",
-    siteName: "Riddles Rush",
-    type: "website",
-  },
+    "Browse fun riddle collections by theme, age, difficulty, and occasion, including riddles for kids, couples, classrooms, holidays, and more.",
   alternates: {
-    canonical: "https://riddles-rush.vercel.app/blog",
+    canonical: "https://www.riddlesrush.com/blog",
   },
 };
 
-const categories = [
-  { emoji: "🧸", label: "Kids Riddles", href: "/blog/category/kids-riddles" },
-  { emoji: "🧠", label: "Adult Riddles", href: "/blog/category/adult-riddles" },
-  { emoji: "🎉", label: "Holiday Riddles", href: "/blog/category/holiday-riddles" },
-  { emoji: "🧩", label: "What Am I Riddles", href: "/blog/category/what-am-i-riddles" },
-  { emoji: "👨‍👩‍👧‍👦", label: "Family Riddles", href: "/blog/category/family-riddles" },
-  { emoji: "🌲", label: "Nature Riddles", href: "/blog/category/nature-riddles" },
-  { emoji: "🍕", label: "Food Riddles", href: "/blog/category/food-riddles" },
-  { emoji: "⚽", label: "Sports Riddles", href: "/blog/category/sports-riddles" },
-];
-
 export default function BlogPage() {
   const { posts, totalPages, currentPage } = getPaginatedBlogPosts(1, 12);
+  const categories = getAllCategories();
+
+  // Generate pagination items
+  const renderPaginationItems = () => {
+    const items = [];
+    const maxVisible = 5;
+    let start = Math.max(1, currentPage - 2);
+    const end = Math.min(totalPages, start + maxVisible - 1);
+    if (end - start < maxVisible - 1) {
+      start = Math.max(1, end - maxVisible + 1);
+    }
+
+    if (start > 1) {
+      items.push(
+        <Link
+          key={1}
+          href="/blog"
+          className="px-3 py-2 text-sm font-medium rounded-lg transition-colors text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-900"
+        >
+          1
+        </Link>
+      );
+      if (start > 2) {
+        items.push(
+          <span key="dots-1" className="px-3 py-2 text-sm font-medium text-gray-500">
+            ...
+          </span>
+        );
+      }
+    }
+
+    for (let p = start; p <= end; p++) {
+      const isCurrent = p === currentPage;
+      const href = p === 1 ? "/blog" : `/blog/page/${p}`;
+      items.push(
+        isCurrent ? (
+          <Link
+            key={p}
+            href={href}
+            aria-current="page"
+            className="px-3 py-2 text-sm font-medium rounded-lg transition-colors bg-blue-600 text-white"
+          >
+            {p}
+          </Link>
+        ) : (
+          <Link
+            key={p}
+            href={href}
+            className="px-3 py-2 text-sm font-medium rounded-lg transition-colors text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-900"
+          >
+            {p}
+          </Link>
+        )
+      );
+    }
+
+    if (end < totalPages) {
+      if (end < totalPages - 1) {
+        items.push(
+          <span key="dots-2" className="px-3 py-2 text-sm font-medium text-gray-500">
+            ...
+          </span>
+        );
+      }
+      items.push(
+        <Link
+          key={totalPages}
+          href={`/blog/page/${totalPages}`}
+          className="px-3 py-2 text-sm font-medium rounded-lg transition-colors text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-900"
+        >
+          {totalPages}
+        </Link>
+      );
+    }
+
+    return items;
+  };
 
   return (
     <>
-      <CollectionPageSchema
-        title="Riddle Collections"
-        description="Browse hundreds of riddle collections by theme, age, difficulty, and occasion."
-        url="/blog"
-        itemCount={470}
-      />
       <Header />
       <main className="flex-1">
-        {/* Page Header */}
-        <ArtHero
-          theme={getBlogTheme("blog")}
-          emoji="🧩"
-          title="Riddle Collections"
-          description="Browse fun riddle collections by theme, age, difficulty, and occasion, including riddles for kids, couples, classrooms, holidays, and more."
-          badge="470+ Collections"
-          seed="blog-index"
-        />
+        <div className="container max-w-7xl py-8 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center mb-6">
+              <div className="mr-4 hidden size-16 shrink-0 items-center justify-center rounded-full bg-blue-100 lg:flex">
+                <BookOpen className="h-8 w-8 text-blue-600" />
+              </div>
+              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900">Riddle Collections</h1>
+            </div>
+            <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Browse fun riddle collections by theme, age, difficulty, and occasion, including riddles for kids, couples,
+              classrooms, holidays, and more.
+            </p>
+            <div className="mt-8 flex items-center justify-center space-x-6 text-sm text-gray-500">
+              <div className="flex items-center">
+                <Calendar className="w-4 h-4 mr-2" />
+                <span>470 Collections</span>
+              </div>
+              <div className="flex items-center">
+                <BookOpen className="w-4 h-4 mr-2" />
+                <span>Updated Regularly</span>
+              </div>
+            </div>
+          </div>
 
-        {/* Category Filter Pills */}
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12">
+          {/* Category Filter Pills */}
           <div className="mt-12">
-            <div className="flex items-center justify-center mb-4">
-              <Tag className="w-4 h-4 mr-2 text-gray-500" />
-              <span className="text-sm font-medium text-gray-500">Browse by Category</span>
+            <div className="flex items-center justify-center mb-6">
+              <Tag className="w-5 h-5 text-gray-600 mr-2" />
+              <h2 className="text-lg font-semibold text-gray-900">Browse by Category</h2>
             </div>
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 href="/blog/category"
                 className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium hover:bg-blue-700 transition-colors"
               >
-                📋 View All
+                View All Categories
               </Link>
               {categories.map((category) => (
                 <Link
-                  key={category.href}
-                  href={category.href}
+                  key={category.slug}
+                  href={`/blog/category/${category.slug}`}
                   className="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors"
                 >
-                  {category.emoji} {category.label}
+                  <span className="mr-2">{category.emoji}</span>
+                  {category.name}
                 </Link>
               ))}
             </div>
@@ -87,20 +151,18 @@ export default function BlogPage() {
 
           {/* Blog Post Grid */}
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post, i) => (
-              <Link
+            {posts.map((post) => (
+              <article
                 key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group relative flex flex-col bg-white border-2 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden justify-between h-full transition-all duration-300 hover:border-blue-300 hover:-translate-y-1"
+                className="group relative flex flex-col bg-white border-2 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl p-6 justify-between h-full transition-all duration-300 hover:border-blue-300 hover:-translate-y-1"
               >
-                <div>
-                  <ArtThumb
-                    theme={getBlogTheme(post.frontmatter.categorySlug)}
-                    emoji={post.frontmatter.emoji}
-                    seed={post.slug}
-                    index={i}
-                  />
-                  <div className="p-6">
+                <div className="flex items-center justify-center mb-6 min-h-[120px]">
+                  <span className="text-7xl filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {post.frontmatter.emoji}
+                  </span>
+                </div>
+                <div className="flex flex-col justify-between flex-1 space-y-4">
+                  <div>
                     <h2 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors">
                       {post.frontmatter.title}
                     </h2>
@@ -108,90 +170,59 @@ export default function BlogPage() {
                       {post.frontmatter.description}
                     </p>
                   </div>
+                  <div className="pt-4 border-t border-gray-100">
+                    <div className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
+                      <span className="mr-2">Browse collection</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </div>
-                <div className="border-t border-gray-100 pt-4 mt-4 px-6 pb-6">
-                  <span className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
-                    Browse collection
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </span>
-                </div>
-              </Link>
+                <Link className="absolute inset-0" href={`/blog/${post.slug}`}>
+                  <span className="sr-only">Open riddle collection</span>
+                </Link>
+              </article>
             ))}
           </div>
 
           {/* Pagination */}
-          <div className="mt-12 flex items-center justify-center">
-            <nav className="flex items-center gap-2">
-              {/* Previous */}
-              <span className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-200 rounded-lg cursor-not-allowed">
-                <ChevronLeft className="w-4 h-4" />
+          <nav className="flex items-center justify-center mt-16" aria-label="Pagination">
+            <div className="flex items-center space-x-2">
+              <span className="flex items-center px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-200 rounded-lg cursor-not-allowed">
+                <ChevronLeft className="w-4 h-4 mr-1" />
                 Previous
               </span>
+              {renderPaginationItems()}
+              {totalPages > 1 && (
+                <Link
+                  href="/blog/page/2"
+                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
+              )}
+            </div>
+          </nav>
 
-              {/* Page 1 (current) */}
-              <span className="px-3 py-2 text-sm font-medium rounded-lg bg-[#7736FE] text-white">
-                1
-              </span>
-
-              {/* Page 2 */}
+          {/* Bottom CTA Section */}
+          <div className="mt-20 text-center">
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-100 rounded-2xl p-8 border border-blue-200">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Ready to Solve Some Riddles?
+              </h2>
+              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+                Put your brain to the test with our interactive riddle collection. Perfect for family game nights, classroom activities, or solo brain training.
+              </p>
               <Link
-                href="/blog/page/2"
-                className="inline-flex items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
+                href="/"
               >
-                2
+                Start Playing Now
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
-
-              {/* Page 3 */}
-              <Link
-                href="/blog/page/3"
-                className="inline-flex items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
-              >
-                3
-              </Link>
-
-              <span className="px-2 py-2 text-sm text-gray-500">...</span>
-
-              {/* Last page */}
-              <Link
-                href={`/blog/page/${totalPages}`}
-                className="inline-flex items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 text-sm font-medium rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors"
-              >
-                {totalPages}
-              </Link>
-
-              {/* Next */}
-              <Link
-                href="/blog/page/2"
-                className="flex items-center min-h-[48px] gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                Next
-                <ChevronRight className="w-4 h-4" />
-              </Link>
-            </nav>
+            </div>
           </div>
-
-          <div className="mt-4 text-center text-sm text-gray-500">
-            Page {currentPage} of {totalPages}
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-24 bg-gray-50 border-y border-gray-100">
-          <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Ready to Solve Some Riddles?
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-              Put your brain to the test with our interactive riddle collection. Perfect for family game nights, classroom activities, or solo brain training.
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center px-8 py-3 bg-[#7736FE] text-white font-semibold rounded-lg hover:bg-[#6a2ee6] transition-colors"
-            >
-              Start Playing Now
-            </Link>
-          </div>
-        </section>
+        </div>
       </main>
       <Footer />
     </>

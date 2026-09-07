@@ -1,13 +1,11 @@
 import Link from "next/link";
-import { CheckCircle, ArrowRight } from "lucide-react";
+import { Home, ChevronRight, Rocket, BookOpen, ArrowRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BlogRiddleCard } from "@/components/BlogRiddleCard";
-import { ArtHero } from "@/components/art";
 import { getBlogPost, getAllBlogSlugs, getBlogPostsByCategory } from "@/lib/content";
-import { ArticleSchema, FAQPageSchema, BreadcrumbListSchema } from "@/components/seo/JsonLd";
+import { ArticleSchema, FAQPageSchema } from "@/components/seo/JsonLd";
 import { generateBlogPostMetadata } from "@/lib/seo-metadata";
-import { getBlogTheme } from "@/lib/visual";
 
 interface Riddle {
   question: string;
@@ -42,16 +40,13 @@ interface FAQItem {
 
 function parseFAQsFromContent(content: string): FAQItem[] {
   const faqs: FAQItem[] = [];
-  // Look for ### headings under "## Frequently Asked Questions"
-  const faqSection = content.split(/##\s+Frequently Asked Questions/i)[1];
+  const faqSection = content.split(/##\s+Frequently Asked Questions|##\s+FAQ/i)[1];
   if (!faqSection) return faqs;
 
-  // Split by ### headings
   const qaBlocks = faqSection.split(/(?=^###\s)/m);
   for (const block of qaBlocks) {
     if (!block.trim() || !block.startsWith("###")) continue;
     const qMatch = block.match(/^###\s+(.+)/m);
-    // Answer is everything after the heading until next heading or end
     const aMatch = block.match(/^###\s+.+\n+([\s\S]*?)(?=\n###|\n##\s|\n\*\*|$)/m);
     if (qMatch && aMatch) {
       faqs.push({
@@ -62,13 +57,6 @@ function parseFAQsFromContent(content: string): FAQItem[] {
   }
   return faqs;
 }
-
-const features = [
-  "Hundreds of riddles with answers",
-  "Fun for all ages and skill levels",
-  "Perfect for parties and classrooms",
-  "New riddles added regularly",
-];
 
 export async function generateStaticParams() {
   const slugs = getAllBlogSlugs();
@@ -104,12 +92,8 @@ export default async function BlogPostPage({
         <Header />
         <main className="flex-1">
           <div className="container max-w-5xl mx-auto px-4 py-20 text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Post Not Found
-            </h1>
-            <p className="text-gray-600 mb-8">
-              The blog post you&apos;re looking for doesn&apos;t exist.
-            </p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">Post Not Found</h1>
+            <p className="text-gray-600 mb-8">The blog post you&apos;re looking for doesn&apos;t exist.</p>
             <Link
               href="/blog"
               className="inline-flex items-center px-6 py-3 bg-[#7736FE] text-white font-semibold rounded-lg hover:bg-[#6a2ee6] transition-colors"
@@ -125,222 +109,197 @@ export default async function BlogPostPage({
 
   const { frontmatter, content } = post;
   const riddles = parseRiddlesFromContent(content);
+  const mainRiddles = riddles.slice(0, 10);
+  const moreRiddles = riddles.slice(10);
+  const faqs = parseFAQsFromContent(content);
 
-  // Split riddles: first 7 are "main", rest are "more"
-  const mainRiddles = riddles.slice(0, 7);
-  const moreRiddles = riddles.slice(7);
-
-  // Extract FAQs from markdown content (fall back to empty array)
-  const extractedFAQs = parseFAQsFromContent(content);
-
-  // Extract "more riddles" intro from markdown
-  let moreRiddlesIntro = "Here are some extras for when one set of riddles just isn't enough.";
-  const moreSectionMatch = content.match(/##\s+More\s+.+?Riddles\s*\n+([\s\S]*?)(?=\n##\s|\n###\s|\n\d+[.)]\s)/i);
-  if (moreSectionMatch && moreSectionMatch[1].trim()) {
-    moreRiddlesIntro = moreSectionMatch[1].trim();
-  }
-
-  // Get related posts from the same category
   const relatedPosts = getBlogPostsByCategory(frontmatter.categorySlug)
     .filter((p) => p.slug !== slug)
     .slice(0, 6);
-
-  // Try to extract an intro from the markdown (the first non-heading paragraph)
-  const contentLines = content.split("\n").filter((line) => line.trim());
-  let introText = frontmatter.description;
-  for (const line of contentLines) {
-    if (
-      line.trim() &&
-      !line.startsWith("#") &&
-      !line.startsWith("**") &&
-      !line.startsWith("## ")
-    ) {
-      introText = line.trim();
-      break;
-    }
-  }
-
-  const faqs = extractedFAQs.length > 0 ? extractedFAQs : [
-    {
-      question: `What are ${frontmatter.title.toLowerCase().replace(" with answers", "")}?`,
-      answer: `${frontmatter.title.replace(" with Answers", "")} are fun, themed brain teasers perfect for parties, classrooms, and family gatherings. They challenge your thinking while keeping everyone entertained.`,
-    },
-    {
-      question: "Are these riddles suitable for kids?",
-      answer: "Yes! These riddles are family-friendly and perfect for kids of all ages. They are great for classroom activities, holiday parties, and family game nights.",
-    },
-    {
-      question: "Can I use these riddles for a trivia game?",
-      answer: "Absolutely! These riddles work perfectly as trivia questions. You can use them for parties, family gatherings, or any celebration.",
-    },
-  ];
 
   return (
     <>
       <ArticleSchema
         title={frontmatter.title}
         description={frontmatter.description}
-        url={`https://riddles-rush.vercel.app/blog/${frontmatter.slug}`}
+        url={`https://riddlesrush.com/blog/${frontmatter.slug}`}
         datePublished={frontmatter.publishedAt}
         dateModified={frontmatter.updatedAt}
         lastReviewed={frontmatter.lastReviewed}
         author={frontmatter.author}
       />
-      <FAQPageSchema faqs={faqs} />
-      <BreadcrumbListSchema
-        items={[
-          { name: "Home", url: "/" },
-          { name: "Categories", url: "/blog" },
-          { name: frontmatter.category, url: `/blog/category/${frontmatter.categorySlug}` },
-          { name: frontmatter.title, url: `/blog/${frontmatter.slug}` },
-        ]}
-      />
+      {faqs.length > 0 && <FAQPageSchema faqs={faqs} />}
       <Header />
       <main className="flex-1">
-        {/* Article Header */}
-        <ArtHero
-          theme={getBlogTheme(frontmatter.categorySlug)}
-          emoji={frontmatter.emoji}
-          title={frontmatter.title}
-          description={frontmatter.description}
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Categories", href: "/blog" },
-            {
-              label: frontmatter.category,
-              href: `/blog/category/${frontmatter.categorySlug}`,
-            },
-            { label: frontmatter.title },
-          ]}
-          seed={frontmatter.slug}
-        />
-
-        {/* Riddle Content Area */}
-        <section className="container max-w-4xl mx-auto px-4">
-          <div className="blog-post-content prose prose-lg max-w-none">
-            {/* Main Riddles Section */}
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 mt-8">
-              {frontmatter.emoji} {frontmatter.title.replace(" with Answers", "")} (With Answers)
-            </h2>
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              {introText}
-            </p>
-
-            {mainRiddles.map((riddle, index) => (
-              <BlogRiddleCard
-                key={index}
-                question={riddle.question}
-                answer={riddle.answer}
-                index={index + 1}
-              />
-            ))}
-
-            {/* More Riddles Section */}
-            {moreRiddles.length > 0 && (
-              <>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 mt-12">
-                  🧩 More {frontmatter.category.replace(" Riddles", "")} Riddles
-                </h2>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {moreRiddlesIntro}
-                </p>
-
-                {moreRiddles.map((riddle, index) => (
-                  <BlogRiddleCard
-                    key={`more-${index}`}
-                    question={riddle.question}
-                    answer={riddle.answer}
-                    index={mainRiddles.length + index + 1}
-                  />
-                ))}
-              </>
-            )}
+        <div className="relative py-3 sm:py-4 lg:py-6">
+          {/* Breadcrumb */}
+          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-2 sm:mb-3 lg:mb-4">
+            <nav className="text-sm text-gray-600 flex flex-wrap items-center gap-1" aria-label="Breadcrumb">
+              <Link className="inline-flex items-center hover:text-[#7736FE] transition-colors" href="/">
+                <Home className="w-4 h-4 mr-1 shrink-0" aria-hidden="true" />
+                Home
+              </Link>
+              <ChevronRight className="w-4 h-4 text-gray-400 shrink-0" aria-hidden="true" />
+              <Link className="hover:text-[#7736FE] transition-colors" href="/blog">
+                Riddles
+              </Link>
+              <ChevronRight className="w-4 h-4 text-gray-400 shrink-0" aria-hidden="true" />
+              <span className="text-gray-900 font-medium line-clamp-2 sm:line-clamp-1" title={frontmatter.title}>
+                {frontmatter.title}
+              </span>
+            </nav>
           </div>
-        </section>
 
-        {/* FAQ Section — from markdown content */}
-        {faqs.length > 0 && (
-          <section className="container max-w-4xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-6">
-              {faqs.map((faq, i) => (
-                <div key={i} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">
-                    {faq.question}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {faq.answer}
+          <div className="relative">
+            <div className="container max-w-5xl lg:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <article lang="en">
+                <div className="text-center mb-4 sm:mb-5 lg:mb-6">
+                  <div className="mb-2 sm:mb-2.5 lg:mb-3">
+                    <span className="text-5xl filter drop-shadow-lg sm:text-6xl lg:text-7xl">
+                      {frontmatter.emoji}
+                    </span>
+                  </div>
+                  <h1 className="mb-2 text-3xl font-bold leading-snug text-gray-900 sm:mb-3 sm:text-4xl sm:leading-tight lg:mb-3 lg:text-4xl">
+                    {frontmatter.title}
+                  </h1>
+                  <p className="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600 sm:text-xl">
+                    {frontmatter.description}
                   </p>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
 
-        {/* CTA Section */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 border-y border-gray-100">
-          <div className="container max-w-5xl mx-auto px-4 text-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Ready to Test Your Brain?
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-              Put your riddle-solving skills to the ultimate test with our
-              interactive quiz!
-            </p>
-            <ul className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 text-left sm:text-center">
-              {features.map((feature, index) => (
-                <li
-                  key={index}
-                  className="flex items-center text-gray-700 text-sm sm:text-base"
-                >
-                  <CheckCircle className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/"
-              className="inline-flex items-center px-8 py-4 bg-[#7736FE] text-white font-semibold rounded-lg hover:bg-[#6a2ee6] transition-colors text-lg"
-            >
-              Start Playing Riddles
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
+                <div className="blog-post-content prose prose-lg max-w-none">
+                  {mainRiddles.map((riddle, index) => (
+                    <BlogRiddleCard
+                      key={index}
+                      question={riddle.question}
+                      answer={riddle.answer}
+                      index={index + 1}
+                    />
+                  ))}
+
+                  {moreRiddles.length > 0 && (
+                    <>
+                      <hr className="my-8 border-gray-300 border-t-2" />
+                      <h2 className="text-3xl font-semibold text-gray-800 my-4">
+                        More {frontmatter.title.replace(" with Answers", "")}
+                      </h2>
+                      {moreRiddles.map((riddle, index) => (
+                        <BlogRiddleCard
+                          key={`more-${index}`}
+                          question={riddle.question}
+                          answer={riddle.answer}
+                          index={mainRiddles.length + index + 1}
+                        />
+                      ))}
+                    </>
+                  )}
+
+                  {faqs.length > 0 && (
+                    <>
+                      <hr className="my-8 border-gray-300 border-t-2" />
+                      <h3 className="text-2xl font-semibold text-gray-800 my-4">FAQ</h3>
+                      {faqs.map((faq, index) => (
+                        <div key={index} className="my-4">
+                          <p className="text-lg leading-relaxed text-gray-700">
+                            <strong className="font-bold text-gray-900">{faq.question}</strong>
+                            <br />
+                            {faq.answer}
+                          </p>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
+
+                {/* "Ready to Test Your Brain?" CTA Card */}
+                <div className="mt-8 rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-100 p-5 shadow-lg sm:mt-12 sm:p-6 lg:mt-16 lg:p-8">
+                  <div className="text-center">
+                    <h2 className="mb-3 text-2xl font-bold text-gray-900 sm:mb-4">
+                      Ready to Test Your Brain?
+                    </h2>
+                    <p className="mx-auto mb-4 max-w-2xl text-base text-gray-700 sm:mb-6">
+                      Challenge yourself with our collection of brain-teasing riddles perfect for all ages!
+                    </p>
+                    <ul className="mx-auto mb-6 max-w-md space-y-1.5 text-left sm:mb-8 sm:space-y-2">
+                      <li className="flex items-center text-gray-700">
+                        <span className="text-green-500 mr-3">✓</span>
+                        Play fun and tricky riddles
+                      </li>
+                      <li className="flex items-center text-gray-700">
+                        <span className="text-green-500 mr-3">✓</span>
+                        Challenge yourself daily with fresh brain teasers
+                      </li>
+                      <li className="flex items-center text-gray-700">
+                        <span className="text-green-500 mr-3">✓</span>
+                        Perfect for all ages: kids, teens, and adults
+                      </li>
+                    </ul>
+                    <Link className="inline-block" href="/">
+                      <button className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[#6658fe] text-white font-semibold focus:outline-none hover:bg-[#6658fed4] h-11 rounded-md text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                        <Rocket className="w-6 h-6 mr-3" />
+                        Start Playing Riddles
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </article>
+
+              {/* Related Posts Section */}
+              {relatedPosts.length > 0 && (
+                <div className="mt-10 sm:mt-12 lg:mt-16">
+                  <aside className="w-full">
+                    <div>
+                      <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-100 rounded-xl border border-blue-200">
+                        <div className="flex items-center mb-3">
+                          <BookOpen className="w-6 h-6 text-blue-600 mr-3" />
+                          <h3 className="text-2xl font-bold text-gray-900">
+                            More {frontmatter.category}
+                          </h3>
+                        </div>
+                        <p className="text-lg text-gray-600">Discover more brain teasers in this category</p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {relatedPosts.map((related) => (
+                          <article
+                            key={related.slug}
+                            className="group bg-white border-2 border-gray-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-lg transition-all duration-200 h-full"
+                          >
+                            <Link className="block h-full" href={`/blog/${related.slug}`}>
+                              <div className="text-center mb-4">
+                                <span className="text-4xl block mb-3">{related.frontmatter.emoji}</span>
+                                <h4 className="font-bold text-gray-900 text-base leading-tight group-hover:text-blue-600 transition-colors line-clamp-2">
+                                  {related.frontmatter.title}
+                                </h4>
+                              </div>
+                              <div className="mt-auto pt-4 border-t border-gray-100">
+                                <div className="flex items-center justify-center text-sm text-blue-600 font-semibold group-hover:text-blue-700 transition-colors">
+                                  <span>Read Article</span>
+                                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                              </div>
+                            </Link>
+                          </article>
+                        ))}
+                      </div>
+
+                      <div className="mt-8 p-6 bg-gray-50 rounded-xl border border-gray-200 text-center">
+                        <Link
+                          className="inline-flex items-center text-lg font-semibold text-gray-700 hover:text-gray-900 transition-colors"
+                          href="/blog"
+                        >
+                          <BookOpen className="w-5 h-5 mr-3" />
+                          View All Posts
+                          <ArrowRight className="w-5 h-5 ml-2" />
+                        </Link>
+                      </div>
+                    </div>
+                  </aside>
+                </div>
+              )}
+            </div>
           </div>
-        </section>
-
-        {/* Related Posts Section */}
-        {relatedPosts.length > 0 && (
-          <section className="container max-w-7xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
-              More from {frontmatter.category}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedPosts.map((related) => (
-                <Link
-                  key={related.slug}
-                  href={`/blog/${related.slug}`}
-                  className="group bg-white border-2 border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="text-5xl mb-4 filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    {related.frontmatter.emoji}
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#7736FE] transition-colors">
-                    {related.frontmatter.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {related.frontmatter.description}
-                  </p>
-                  <div className="mt-4 flex items-center text-[#7736FE] font-medium text-sm">
-                    Browse collection
-                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        </div>
       </main>
       <Footer />
     </>

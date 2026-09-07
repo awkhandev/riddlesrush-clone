@@ -1,156 +1,134 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { getAllCategories, getBlogPostsByCategory } from "@/lib/content";
-import { CollectionPageSchema } from "@/components/seo/JsonLd";
-import { ArtHero, ArtThumb } from "@/components/art";
-import { getBlogTheme } from "@/lib/visual";
+import { getAllCategories } from "@/lib/content";
+import { Tag, BookOpen } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Riddle Categories | Browse All Categories",
+  title: "Riddle Categories - Browse by Topic | Riddles Rush",
   description:
-    "Browse all riddle categories to find the perfect collection for any occasion. From kids riddles to brain teasers, explore our curated collections.",
-  openGraph: {
-    title: "Riddle Categories | Riddles Rush",
-    description:
-      "Browse all riddle categories to find the perfect collection for any occasion.",
-    url: "https://riddles-rush.vercel.app/blog/category",
-    siteName: "Riddles Rush",
-    type: "website",
-  },
+    "Explore our collection of riddles organized by category. Find kids riddles, adult brain teasers, holiday riddles, and more!",
   alternates: {
-    canonical: "https://riddles-rush.vercel.app/blog/category",
+    canonical: "https://www.riddlesrush.com/blog/category",
+  },
+};
+
+const categoryStyles: Record<string, { iconBg: string; iconBorder: string; iconText: string }> = {
+  "kids-riddles": {
+    iconBg: "bg-blue-100",
+    iconBorder: "border-blue-200",
+    iconText: "text-blue-600",
+  },
+  "adult-riddles": {
+    iconBg: "bg-purple-100",
+    iconBorder: "border-purple-200",
+    iconText: "text-purple-600",
+  },
+  "holiday-riddles": {
+    iconBg: "bg-green-100",
+    iconBorder: "border-green-200",
+    iconText: "text-green-600",
+  },
+  "what-am-i-riddles": {
+    iconBg: "bg-orange-100",
+    iconBorder: "border-orange-200",
+    iconText: "text-orange-600",
+  },
+  "family-riddles": {
+    iconBg: "bg-pink-100",
+    iconBorder: "border-pink-200",
+    iconText: "text-pink-600",
+  },
+  "nature-riddles": {
+    iconBg: "bg-green-100",
+    iconBorder: "border-green-200",
+    iconText: "text-green-600",
+  },
+  "food-riddles": {
+    iconBg: "bg-red-100",
+    iconBorder: "border-red-200",
+    iconText: "text-red-600",
+  },
+  "sports-riddles": {
+    iconBg: "bg-yellow-100",
+    iconBorder: "border-yellow-200",
+    iconText: "text-yellow-600",
   },
 };
 
 export default function BlogCategoryPage() {
   const categories = getAllCategories();
 
-  // Compute post counts per category
-  const postCounts: Record<string, number> = {};
-  for (const cat of categories) {
-    postCounts[cat.slug] = getBlogPostsByCategory(cat.slug).length;
-  }
-
   return (
     <>
-      <CollectionPageSchema
-        title="Riddle Categories"
-        description="Browse all riddle categories to find the perfect collection for any occasion."
-        url="/blog/category"
-        itemCount={categories.length}
-      />
       <Header />
-      <main className="flex min-h-screen flex-col items-center">
-        <div className="flex flex-col w-full">
-          {/* Header Section */}
-          <ArtHero
-            theme={getBlogTheme("blog")}
-            emoji="🗂️"
-            title="Riddle Categories"
-            description="Browse all riddle categories to find the perfect collection for any occasion."
-            badge={`${categories.length} Categories`}
-            seed="category-index"
-          />
+      <main className="flex-1">
+        <div className="container max-w-7xl py-8 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <Tag className="w-8 h-8 text-blue-600" />
+              </div>
+              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900">Riddle Categories</h1>
+            </div>
+            <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Explore our collection of riddles organized by topic and difficulty level. Whether you&apos;re looking for
+              family fun, brain challenges, or seasonal entertainment, we have the perfect riddles for every occasion.
+            </p>
+          </div>
 
-          <section className="py-12 sm:py-16 lg:py-20 bg-white">
-            <div className="w-full max-w-5xl sm:max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
-              {/* Categories Grid */}
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {categories.map((category, i) => {
-                  const count = postCounts[category.slug] || 0;
-                  return (
-                    <Link
-                      key={category.slug}
-                      href={`/blog/category/${category.slug}`}
-                      className="group flex flex-col bg-white border-2 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden h-full transition-all duration-300 hover:border-purple-300 hover:-translate-y-1"
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {categories.map((category) => {
+              const style = categoryStyles[category.slug] || {
+                iconBg: "bg-purple-100",
+                iconBorder: "border-purple-200",
+                iconText: "text-purple-600",
+              };
+
+              return (
+                <Link
+                  key={category.slug}
+                  href={`/blog/category/${category.slug}`}
+                  className="group relative flex flex-col bg-white border-2 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl p-6 justify-between h-full transition-all duration-300 hover:border-blue-300 hover:-translate-y-1"
+                >
+                  <div className="flex items-center justify-center mb-6 min-h-[120px]">
+                    <div
+                      className={`w-20 h-20 rounded-full flex items-center justify-center border-2 ${style.iconBg} ${style.iconBorder} ${style.iconText}`}
                     >
-                      <ArtThumb
-                        theme={getBlogTheme(category.slug)}
-                        emoji={category.emoji}
-                        seed={category.slug}
-                        index={i}
-                      />
-                      <div className="flex flex-col p-5 pt-0 text-left flex-1">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 leading-tight mb-2 group-hover:text-[#7736FE] transition-colors">
-                          {category.name}
-                        </h3>
-                        <p className="text-gray-600 text-sm sm:text-base leading-relaxed line-clamp-3 mb-4 flex-1">
-                          {category.description}
-                        </p>
-                        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                          <span className="text-sm text-gray-500">
-                            {count} Collections
-                          </span>
-                          <span className="flex items-center text-[#7736FE] font-medium text-sm group-hover:text-purple-700 transition-colors">
-                            Browse collection
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width={16}
-                              height={16}
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="ml-1.5 group-hover:translate-x-1 transition-transform"
-                            >
-                              <path d="M5 12h14" />
-                              <path d="m12 5 7 7-7 7" />
-                            </svg>
-                          </span>
-                        </div>
+                      <span className="text-4xl">{category.emoji}</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col justify-between flex-1 space-y-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors">
+                        {category.name}
+                      </h2>
+                      <p className="text-gray-600 leading-relaxed line-clamp-3">
+                        {category.description}
+                      </p>
+                    </div>
+                    <div className="pt-4 border-t border-gray-100">
+                      <div className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
+                        <span className="mr-2">View Category</span>
+                        <BookOpen className="w-4 h-4 group-hover:scale-110 transition-transform" />
                       </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
 
-          {/* CTA Section */}
-          <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 border-y border-gray-100">
-            <div className="w-full max-w-5xl sm:max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto text-center">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                Can&apos;t find what you&apos;re looking for?
-              </h2>
-              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Explore our full collection of riddles or try today&apos;s
-                featured riddle for a daily brain workout.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center justify-center bg-[#7736FE] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#6a2ee6] transition-colors"
-                >
-                  Browse all collections
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={16}
-                    height={16}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="ml-2"
-                  >
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/riddle-of-the-day"
-                  className="inline-flex items-center justify-center bg-white text-gray-700 border border-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-                >
-                  Today&apos;s Featured Riddle
-                </Link>
-              </div>
-            </div>
-          </section>
+          <div className="mt-20 text-center">
+            <Link
+              className="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
+              href="/blog"
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              Back to All Riddles
+            </Link>
+          </div>
         </div>
       </main>
       <Footer />

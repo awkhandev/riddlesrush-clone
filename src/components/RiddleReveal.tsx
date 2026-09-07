@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { Eye, EyeOff, CheckCircle2 } from "lucide-react";
 
 export function RiddleReveal({
   answer,
-  hint,
+  hint = "Take a moment to solve it, then reveal the answer below.",
 }: {
   answer: string;
   hint?: string;
@@ -12,65 +13,45 @@ export function RiddleReveal({
   const [revealed, setRevealed] = useState(false);
 
   return (
-    <div className="mt-8 text-center">
-      {hint && (
-        <p className="mb-4 text-sm text-gray-500 italic">{hint}</p>
-      )}
+    <div className="bg-white border-2 border-gray-200 rounded-xl p-6 my-6 shadow-sm hover:shadow-md transition-all duration-200 hover:border-blue-300">
+      <p className="text-sm text-gray-500 mb-4 italic">{hint}</p>
 
-      <button
-        onClick={() => setRevealed(!revealed)}
-        className="inline-flex items-center gap-2 rounded-xl bg-[#7736FE] px-8 py-3.5 text-base font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#6a2ee6] hover:shadow-lg active:scale-[0.97]"
-      >
-        {revealed ? (
-          <>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
-              <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
-              <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
-              <line x1="2" x2="22" y1="2" y2="22" />
-            </svg>
-            Hide Answer
-          </>
-        ) : (
-          <>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-            Reveal Answer
-          </>
+      <div className="border-t border-gray-100 pt-4">
+        <button
+          onClick={() => setRevealed(!revealed)}
+          className="inline-flex items-center space-x-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200 hover:bg-blue-50 px-3 py-2 rounded-lg"
+          aria-expanded={revealed}
+        >
+          {revealed ? (
+            <>
+              <EyeOff className="w-4 h-4" />
+              <span>Hide Answer</span>
+            </>
+          ) : (
+            <>
+              <Eye className="w-4 h-4" />
+              <span>Reveal Answer</span>
+            </>
+          )}
+        </button>
+
+        {revealed && (
+          <div className="mt-4 pt-4 border-t border-gray-100 animate-fadeIn">
+            <div className="flex items-start space-x-2 text-green-700 bg-green-50 p-4 rounded-lg">
+              <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-semibold text-green-800 uppercase tracking-wider mb-0.5">
+                  Answer:
+                </p>
+                <p className="text-base font-medium text-green-900 leading-relaxed">
+                  {answer}
+                </p>
+              </div>
+            </div>
+          </div>
         )}
-      </button>
-
-      <div
-        className={`mt-6 overflow-hidden transition-all duration-500 ease-in-out ${
-          revealed ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="rounded-xl border border-green-200 bg-green-50 p-6">
-          <p className="text-lg font-medium text-green-800">{answer}</p>
-        </div>
       </div>
     </div>
   );
 }
+

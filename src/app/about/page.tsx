@@ -1,26 +1,23 @@
-import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { OrganizationSchema } from "@/components/seo/JsonLd";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ArtHero } from "@/components/art";
-import { getThemeBySlug } from "@/lib/visual";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About | Riddles Rush",
+  title: "About RiddlesRush",
   description:
-    "The story behind Riddles Rush — a riddle-loving developer's attempt to make the internet a little more fun, one brain teaser at a time.",
+    "Learn about RiddlesRush, a site for fun, clever, and family-friendly riddles, brain teasers, and trivia-style questions.",
   openGraph: {
-    title: "About Riddles Rush",
+    title: "Riddles Rush",
     description:
-      "The story behind Riddles Rush — a riddle-loving developer's attempt to make the internet a little more fun.",
-    url: "https://riddles-rush.vercel.app/about",
+      "Engage your mind with Riddles Rush! Packed with challenging puzzles and brain teasers, helping to improve your problem-solving skills.",
+    url: "https://www.riddlesrush.com/about",
     siteName: "Riddles Rush",
     type: "website",
   },
   alternates: {
-    canonical: "https://riddles-rush.vercel.app/about",
+    canonical: "https://www.riddlesrush.com/about",
   },
 };
 
@@ -33,7 +30,7 @@ export default function AboutPage() {
           "@context": "https://schema.org",
           "@type": "Person",
           name: "Patrick Stevens",
-          url: "https://riddles-rush.vercel.app/about",
+          url: "https://www.riddlesrush.com/about",
           jobTitle: "Software Developer",
           worksFor: {
             "@type": "Organization",
@@ -42,103 +39,61 @@ export default function AboutPage() {
           knowsAbout: ["Riddles", "Brain Teasers", "Puzzles", "Web Development"],
         }}
       />
-      <Header />
-      <main className="flex-1">
-        {/* Hero */}
-        <ArtHero
-          theme={getThemeBySlug("answers")}
-          emoji="🤝"
-          title="About RiddlesRush"
-          description="How a love for brain teasers turned into a website — and why we keep it simple."
-          breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
-          seed="about"
-        />
-
-        <div className="container max-w-4xl py-12 lg:py-20 mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Content Sections */}
-          <div className="prose prose-lg max-w-none">
-            <section className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                How Riddles Rush Started
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                It started with a simple frustration: every time I searched
-                for riddles online, I landed on pages buried under pop-ups,
-                autoplay videos, and ads for things I&apos;d never buy. All I
-                wanted was a clean list of good riddles. So I decided to build
-                one myself — a place where you could find a great riddle
-                collection without fighting through a maze of clutter.
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="grow">
+          <div className="mx-auto mb-24 flex max-w-4xl flex-col space-y-4 px-5 pt-6 sm:pt-24 lg:px-0">
+            <h1 className="mb-4 text-2xl font-bold">About RiddlesRush</h1>
+            <div className="mt-2 space-y-6">
+              <p>
+                RiddlesRush is a place to discover fun, clever, family-friendly
+                riddles, brain teasers, and trivia-style questions, whether you have
+                a minute to spare or you are planning something bigger.
               </p>
-            </section>
-
-            <section className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                What Makes This Place Different
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Every riddle collection here is organized to get you to the
-                good stuff fast. No account required, no newsletter pop-ups,
-                no &quot;sign up to continue reading&quot; gates. Just riddles
-                — sorted by theme, difficulty, age group, and occasion. Whether
-                you need something for a classroom icebreaker or a family game
-                night, you should be able to find it in a couple of clicks.
-              </p>
-            </section>
-
-            <section className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                The Person Behind the Keyboard
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                I&apos;m Patrick Stevens — a software developer based in
-                Washington state who spends too much time thinking about
-                puzzles and not enough time going outside. Riddles Rush is
-                a passion project born from a genuine love of brain teasers
-                and the belief that a good riddle can brighten anyone&apos;s
-                day. When I&apos;m not coding or curating riddle collections,
-                I&apos;m probably solving logic puzzles or arguing about
-                whether a hot dog is a sandwich.
-              </p>
-            </section>
-
-            <section className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                Get in Touch
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Got a riddle to share? Found a broken link? Just want to say
-                hi? I read every email and appreciate hearing from fellow
-                riddle enthusiasts. Drop me a line at{" "}
-                <a
-                  href="mailto:contact@patrickws.com"
-                  className="inline-flex items-center min-h-[48px] text-[#7736FE] hover:underline font-medium"
-                >
-                  contact@patrickws.com
-                </a>
-                {" "}— I usually reply within a day or two.
-              </p>
-            </section>
+              <section className="space-y-3">
+                <h2 className="text-base font-bold">Why I Built RiddlesRush</h2>
+                <p>
+                  I wanted a simple, pleasant way for readers, parents, teachers,
+                  students, friends, families, and content creators to find riddles
+                  for games, classrooms, parties, videos, and everyday fun, without
+                  digging through cluttered pages.
+                </p>
+              </section>
+              <section className="space-y-3">
+                <h2 className="text-base font-bold">What You&apos;ll Find Here</h2>
+                <p>
+                  The site focuses on short, readable riddle collections that are
+                  reviewed and organized to stay clear, useful, and easy to browse.
+                  The goal is to help you get to a great riddle quickly, then get
+                  back to your game, lesson, or project.
+                </p>
+              </section>
+              <section className="space-y-3">
+                <h2 className="text-base font-bold">Who Runs the Site</h2>
+                <p>
+                  RiddlesRush is created and maintained by Patrick Stevens. I am a
+                  software developer based in Washington state, and I enjoy
+                  building useful web apps and simple online tools.
+                </p>
+              </section>
+              <section className="space-y-3">
+                <h2 className="text-base font-bold">Contact</h2>
+                <p>
+                  Questions, suggestions, or corrections? You can reach me by email
+                  at{" "}
+                  <a
+                    className="underline hover:text-gray-700"
+                    href="mailto:contact@patrickws.com"
+                  >
+                    contact@patrickws.com
+                  </a>
+                </p>
+              </section>
+            </div>
           </div>
-
-          {/* CTA */}
-          <div className="mt-16 text-center bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8 sm:p-12 border border-gray-100">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-              Ready to Put Your Brain to Work?
-            </h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto">
-              Enough about us — let&apos;s see what you&apos;ve got. Browse our
-              riddle collections and find something that stumps you.
-            </p>
-            <Link
-              href="/riddles/riddles-with-answers"
-              className="inline-flex items-center justify-center rounded-lg bg-[#7736FE] px-8 py-4 text-lg font-bold text-white shadow-sm hover:bg-[#6a2ee6] transition-colors"
-            >
-              Browse Riddles →
-            </Link>
-          </div>
-        </div>
-      </main>
-      <Footer />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

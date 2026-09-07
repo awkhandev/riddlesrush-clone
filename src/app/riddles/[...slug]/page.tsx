@@ -3,15 +3,14 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { RiddleReveal } from "@/components/RiddleReveal";
-import { ArtHero } from "@/components/art";
 import {
   getRiddleType,
   getAllRiddleTypeSlugs,
 } from "@/lib/content";
 import type { RiddleItem, RiddleType } from "@/types/content";
-import { FAQPageSchema, BreadcrumbListSchema } from "@/components/seo/JsonLd";
+import { BreadcrumbListSchema } from "@/components/seo/JsonLd";
 import { generateRiddleMetadata } from "@/lib/seo-metadata";
-import { getRiddleTheme } from "@/lib/visual";
+import { Home, ChevronRight, ArrowRight, BookOpen } from "lucide-react";
 
 // ─── Derived Helpers ────────────────────────────────────────────────────────
 
@@ -23,7 +22,7 @@ function getAllRiddleSlugs(): string[] {
   });
 }
 
-function findRiddleFromContent(slug: string): (RiddleItem & { category: string; categorySlug: string }) | null {
+function findRiddleFromContent(slug: string): (RiddleItem & { category: string; categorySlug: string; explanation?: string }) | null {
   for (const typeSlug of getAllRiddleTypeSlugs()) {
     const type = getRiddleType(typeSlug);
     if (!type) continue;
@@ -88,11 +87,12 @@ export async function generateMetadata({
   // Otherwise, try to find an individual riddle
   const riddle = findRiddleFromContent(slug);
   if (riddle) {
+    const truncated = riddle.question.length > 35 ? `${riddle.question.slice(0, 35)}…` : riddle.question;
     return {
-      title: `${riddle.question.slice(0, 60)}... | Riddles Rush`,
-      description: riddle.question,
+      title: `${truncated} - Answer & explanation | Riddles Rush`,
+      description: `${riddle.question} Answer: ${riddle.answer}. Short explanation and related riddles.`,
       alternates: {
-        canonical: `https://riddles-rush.vercel.app/riddles/${riddle.slug}`,
+        canonical: `https://www.riddlesrush.com/riddles/${riddle.slug}`,
       },
     };
   }
@@ -100,129 +100,23 @@ export async function generateMetadata({
   return { title: "Riddles | Riddles Rush" };
 }
 
-// ─── Hub Card ─────────────────────────────────────────────────────────────────
-
-function RiddleCard({
-  riddle,
-  index,
-  href,
-}: {
-  riddle: RiddleItem;
-  index: number;
-  href: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="block rounded-xl border-2 border-gray-200 bg-white p-6 transition-all duration-300 hover:border-purple-200 hover:shadow-lg group"
-    >
-      <div className="mb-3 flex items-center gap-3">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-100 text-sm font-bold text-[#7736FE]">
-          {index + 1}
-        </span>
-        <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
-          Riddle
-        </span>
-      </div>
-      <p className="mb-4 text-lg font-medium text-gray-800 group-hover:text-[#7736FE] transition-colors duration-300">
-        {riddle.question}
-      </p>
-      <span className="inline-flex items-center text-sm font-semibold text-[#7736FE]">
-        Read more{" "}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="ml-1"
-        >
-          <path d="M5 12h14" />
-          <path d="m12 5 7 7-7 7" />
-        </svg>
-      </span>
-    </Link>
-  );
-}
-
-// ─── Related Card (smaller) ───────────────────────────────────────────────────
-
-function RelatedCard({
-  riddle,
-  href,
-}: {
-  riddle: RiddleItem;
-  href: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="block rounded-xl border-2 border-gray-200 bg-white p-5 transition-all duration-300 hover:border-purple-200 hover:shadow-md group"
-    >
-      <p className="mb-3 text-base font-medium text-gray-800 line-clamp-3 group-hover:text-[#7736FE] transition-colors">
-        {riddle.question}
-      </p>
-      <span className="inline-flex items-center text-sm font-semibold text-[#7736FE]">
-        Read more{" "}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="ml-1"
-        >
-          <path d="M5 12h14" />
-          <path d="m12 5 7 7-7 7" />
-        </svg>
-      </span>
-    </Link>
-  );
-}
-
 // ─── Hub Page ─────────────────────────────────────────────────────────────────
+
+const OTHER_HUBS = [
+  { title: "Tricky Riddles", slug: "tricky-riddles", emoji: "🧠" },
+  { title: "Short Riddles", slug: "short-riddles", emoji: "⚡" },
+  { title: "Logic Riddles", slug: "logic-riddles", emoji: "🔗" },
+  { title: "Hard Riddles", slug: "hard-riddles", emoji: "🔥" },
+  { title: "Kids Riddles", slug: "kids", emoji: "🧸" },
+];
 
 function HubPage({
   typeData,
 }: {
   typeData: RiddleType;
 }) {
-  const allTypes = getAllRiddleTypeSlugs()
-    .map((s) => getRiddleType(s))
-    .filter((t): t is RiddleType => t !== null && t.riddles.length > 0);
-
-  const otherTypes = allTypes.filter(
-    (t) => t.frontmatter.slug !== typeData.frontmatter.slug
-  );
-
-  const faqs = [
-    {
-      question: `What are ${typeData.frontmatter.title.toLowerCase()}?`,
-      answer: typeData.frontmatter.description,
-    },
-    {
-      question: `How many ${typeData.frontmatter.title.toLowerCase()} are there?`,
-      answer: `There are ${typeData.riddles.length} ${typeData.frontmatter.title.toLowerCase()} in this collection, each with a hidden answer.`,
-    },
-    {
-      question: "Are these riddles suitable for all ages?",
-      answer: "Yes! These riddles are designed to be family-friendly and entertaining for all ages.",
-    },
-  ];
-
-  const theme = getRiddleTheme(typeData.frontmatter.slug);
-
   return (
     <>
-      <FAQPageSchema faqs={faqs} />
       <BreadcrumbListSchema
         items={[
           { name: "Home", url: "/" },
@@ -230,85 +124,86 @@ function HubPage({
         ]}
       />
       <Header />
-      <main className="flex min-h-screen flex-col">
-        {/* Hero */}
-        <ArtHero
-          theme={theme}
-          emoji={typeData.frontmatter.emoji}
-          title={typeData.frontmatter.title}
-          description={typeData.frontmatter.description}
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: typeData.frontmatter.title },
-          ]}
-          badge={`${typeData.riddles.length} Riddles`}
-          seed={typeData.frontmatter.slug}
-        />
+      <div className="relative py-8 lg:py-12">
+        <div className="container max-w-4xl mx-auto px-4">
+          <nav className="mb-8 text-sm text-gray-600 flex flex-wrap items-center gap-1" aria-label="Breadcrumb">
+            <Link className="inline-flex items-center hover:text-[#7736FE] transition-colors" href="/">
+              <Home className="w-4 h-4 mr-1" />
+              Home
+            </Link>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <span className="text-gray-900 font-medium line-clamp-1">
+              {typeData.frontmatter.title}
+            </span>
+          </nav>
 
-        {/* Riddle listings */}
-        <section className="container mx-auto max-w-5xl py-12">
-          <h2 className="mb-8 font-heading text-2xl font-bold text-gray-900 sm:text-3xl">
-            Riddles in this collection
-          </h2>
-          <div className="grid gap-5 sm:grid-cols-2">
-            {typeData.riddles.map((riddle, i) => (
-              <RiddleCard
-                key={riddle.slug}
-                riddle={riddle}
-                index={i}
-                href={`/riddles/${riddle.slug}`}
-              />
-            ))}
-          </div>
-        </section>
+          <article>
+            <header className="mb-8">
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+                <span className="mr-2" aria-hidden="true">{typeData.frontmatter.emoji || "✅"}</span>
+                {typeData.frontmatter.title}
+                {typeData.frontmatter.title.toLowerCase().includes("answers") ? " (with Answers)" : ""}
+              </h1>
+            </header>
 
-        {/* Explore other types */}
-        {otherTypes.length > 0 && (
-          <section className="border-t border-gray-100 bg-gray-50 py-12 sm:py-16">
-            <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-              <h2 className="mb-8 font-heading text-2xl font-bold text-gray-900 sm:text-3xl">
+            <div className="prose prose-lg max-w-none text-gray-700 space-y-4 mb-10">
+              <p className="text-base leading-7">
+                {typeData.frontmatter.description ||
+                  "This is the full index of riddles we publish as standalone pages, every one with an answer and explanation. It is the broadest hub: use it when you want to browse everything we have released for static generation, sorted in a stable order for predictable crawling."}
+              </p>
+              <p className="text-base leading-7">
+                Narrower hubs like tricky-riddles, logic-riddles, or kids group riddles by intent so you can explore a theme without scanning the entire set. Category hubs (such as food or sports) still work the same way they always have. This page simply mirrors the complete list for people who search for &ldquo;riddles with answers&rdquo; in the generic sense.
+              </p>
+            </div>
+
+            <section aria-labelledby="hub-list-heading">
+              <h2 id="hub-list-heading" className="text-xl font-semibold text-gray-900 mb-4">
+                Riddles in this collection
+              </h2>
+              <ul className="grid gap-3 sm:grid-cols-1">
+                {typeData.riddles.map((riddle) => (
+                  <li key={riddle.slug}>
+                    <Link
+                      className="block p-4 rounded-xl border border-gray-200 hover:border-[#7736FE] hover:shadow-sm transition-all text-base text-gray-900 leading-snug font-medium"
+                      href={`/riddles/${riddle.slug}`}
+                    >
+                      {riddle.question}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="mt-12 pt-8 border-t border-gray-200" aria-labelledby="other-hubs-heading">
+              <h2 id="other-hubs-heading" className="text-lg font-semibold text-gray-900 mb-3">
                 Explore other types of riddles
               </h2>
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {otherTypes.map((t, idx) => (
-                  <Link
-                    key={`${t.frontmatter.slug}-${idx}`}
-                    href={`/riddles/${t.frontmatter.slug}`}
-                    className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-all duration-300 hover:border-purple-200 hover:shadow-md"
-                  >
-                    <span className="text-3xl">{t.frontmatter.emoji}</span>
-                    <div>
-                      <p className="font-semibold text-gray-800">{t.frontmatter.title}</p>
-                      <p className="text-sm text-gray-500 line-clamp-1">
-                        {t.frontmatter.description}
-                      </p>
-                    </div>
-                  </Link>
+              <p className="text-sm text-gray-600 mb-4">
+                Looking for a different style? Try another popular riddle list.
+              </p>
+              <ul className="flex flex-wrap gap-2">
+                {OTHER_HUBS.filter((h) => h.slug !== typeData.frontmatter.slug).map((hub) => (
+                  <li key={hub.slug}>
+                    <Link
+                      className="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-800 hover:border-[#7736FE] hover:text-[#7736FE] transition-colors"
+                      href={`/riddles/${hub.slug}`}
+                    >
+                      <span className="mr-1.5" aria-hidden="true">{hub.emoji}</span>
+                      {hub.title}
+                    </Link>
+                  </li>
                 ))}
-              </div>
-            </div>
-          </section>
-        )}
+              </ul>
+            </section>
+          </article>
 
-        {/* CTA */}
-        <section className="bg-[#7736FE] py-12 sm:py-16">
-          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="mb-4 font-heading text-3xl font-bold text-white sm:text-4xl">
-              Ready for more brain teasers?
-            </h2>
-            <p className="mb-8 text-lg text-purple-100">
-              Challenge yourself with our full collection of riddles and keep
-              your mind sharp.
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-[#7736FE] shadow-md transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
-            >
-              Back to Home
-            </Link>
-          </div>
-        </section>
-      </main>
+          <p className="mt-10 text-xs text-gray-400 text-center">
+            <a href={`https://www.riddlesrush.com/riddles/${typeData.frontmatter.slug}`} className="underline hover:text-gray-600">
+              Permalink
+            </a>
+          </p>
+        </div>
+      </div>
       <Footer />
     </>
   );
@@ -319,7 +214,7 @@ function HubPage({
 function IndividualRiddlePage({
   riddle,
 }: {
-  riddle: RiddleItem & { category: string; categorySlug: string };
+  riddle: RiddleItem & { category: string; categorySlug: string; explanation?: string };
 }) {
   const allTypes = getAllRiddleTypeSlugs()
     .map((s) => getRiddleType(s))
@@ -330,121 +225,147 @@ function IndividualRiddlePage({
     (r) => !related.some((rr) => rr.slug === r.slug),
   );
 
-  const theme = getRiddleTheme(riddle.categorySlug);
-  const hubEmoji =
-    getRiddleType(riddle.categorySlug)?.frontmatter.emoji || "🧠";
-
   return (
     <>
       <BreadcrumbListSchema
         items={[
           { name: "Home", url: "/" },
           { name: riddle.category, url: `/riddles/${riddle.categorySlug}` },
-          { name: "Riddle", url: `/riddles/${riddle.slug}` },
+          { name: riddle.question, url: `/riddles/${riddle.slug}` },
         ]}
       />
       <Header />
-      <main className="flex min-h-screen flex-col">
-        {/* Hero */}
-        <ArtHero
-          theme={theme}
-          emoji={hubEmoji}
-          title={riddle.question}
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            {
-              label: riddle.category,
-              href: `/riddles/${riddle.categorySlug}`,
-            },
-            { label: "Riddle" },
-          ]}
-          seed={riddle.slug}
-        />
-
-        {/* Riddle card */}
-        <section className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border-2 border-gray-200 bg-white p-8 shadow-sm sm:p-10">
-            <p className="mb-6 text-xl font-medium leading-relaxed text-gray-800 sm:text-2xl">
+      <div className="relative py-8 lg:py-12">
+        <div className="container max-w-4xl mx-auto px-4">
+          <nav className="mb-8 text-sm text-gray-600 flex flex-wrap items-center gap-1" aria-label="Breadcrumb">
+            <Link className="inline-flex items-center hover:text-[#7736FE] transition-colors" href="/">
+              <Home className="w-4 h-4 mr-1" />
+              Home
+            </Link>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <Link className="hover:text-[#7736FE] transition-colors" href={`/riddles/${riddle.categorySlug}`}>
+              {riddle.category}
+            </Link>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <span className="text-gray-900 font-medium line-clamp-1" title={riddle.question}>
               {riddle.question}
-            </p>
-            <p className="mb-2 text-sm text-gray-500 italic">
-              Take a moment to solve it, then reveal the answer below.
-            </p>
-            <RiddleReveal
-              answer={riddle.answer}
-              hint="Click the button when you&rsquo;re ready!"
-            />
-          </div>
-        </section>
+            </span>
+          </nav>
 
-        {/* More Like This */}
-        {moreLike.length > 0 && (
-          <section className="border-t border-gray-100 bg-gray-50 py-12 sm:py-16">
-            <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-              <h2 className="mb-8 font-heading text-2xl font-bold text-gray-900 sm:text-3xl">
-                More Like This
+          <article>
+            <header className="mb-8 text-center">
+              <p className="text-xs font-medium text-[#7736FE] mb-2 uppercase tracking-wide">
+                Riddle
+              </p>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug">
+                {riddle.question}
+              </h1>
+              <p className="mt-2 text-base text-gray-600 max-w-md mx-auto leading-relaxed">
+                Try it first, then reveal and read the payoff.
+              </p>
+              <p className="mt-4 text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">
+                Explore more on the{" "}
+                <Link className="text-[#7736FE] font-medium hover:underline" href={`/riddles/${riddle.categorySlug}`}>
+                  {riddle.category} hub
+                </Link>{" "}
+                (with answers).
+              </p>
+            </header>
+
+            <section aria-labelledby="answer-block" className="mb-8">
+              <h2 id="answer-block" className="text-lg font-semibold text-gray-900 mb-2">
+                Answer
               </h2>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {moreLike.map((r) => (
-                  <RelatedCard
-                    key={r.slug}
-                    riddle={r}
-                    href={`/riddles/${r.slug}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+              <RiddleReveal answer={riddle.answer} />
+            </section>
 
-        {/* Related Riddles */}
-        {related.length > 0 && (
-          <section className="border-t border-gray-100 py-12 sm:py-16">
-            <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-              <h2 className="mb-8 font-heading text-2xl font-bold text-gray-900 sm:text-3xl">
-                Related Riddles
-              </h2>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {related.map((r) => (
-                  <RelatedCard
-                    key={r.slug}
-                    riddle={r}
-                    href={`/riddles/${r.slug}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+            {riddle.explanation && (
+              <section aria-labelledby="explanation-heading" className="mb-10">
+                <h2 id="explanation-heading" className="text-xl font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-2">
+                  Why it works
+                </h2>
+                <p className="text-lg leading-8 text-gray-800">
+                  {riddle.explanation}
+                </p>
+              </section>
+            )}
 
-        {/* CTA */}
-        <section className="bg-[#7736FE] py-12 sm:py-16">
-          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="mb-4 font-heading text-3xl font-bold text-white sm:text-4xl">
-              Enjoyed this riddle?
-            </h2>
-            <p className="mb-8 text-lg text-purple-100">
-              Explore more riddles in the{" "}
-              <span className="font-semibold">{riddle.category}</span>{" "}
-              collection or try a completely different category.
+            {moreLike.length > 0 && (
+              <section className="mb-10 p-6 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100">
+                <h2 className="text-lg font-semibold text-gray-900 mb-3">
+                  More like this
+                </h2>
+                <ul className="mb-4 space-y-2 text-sm text-gray-800 list-disc pl-5">
+                  {moreLike.map((r) => (
+                    <li key={r.slug}>
+                      <Link href={`/riddles/${r.slug}`} className="text-[#7736FE] hover:underline">
+                        {r.question}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-gray-700 mb-4 text-sm">
+                  {riddle.category} riddles and brain teasers.
+                </p>
+                <Link
+                  href={`/blog/category/${riddle.categorySlug}`}
+                  className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground sm:hover:scale-105 sm:hover:transform h-10 px-4 py-2 bg-[#7736FE] hover:bg-purple-700 inline-flex"
+                >
+                  {riddle.category} on the blog
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </section>
+            )}
+
+            {related.length > 0 && (
+              <section aria-labelledby="related-heading" className="mb-10">
+                <h2 id="related-heading" className="text-xl font-semibold text-gray-900 mb-4">
+                  Related riddles
+                </h2>
+                <ul className="grid gap-3 sm:grid-cols-2">
+                  {related.map((r) => (
+                    <li key={r.slug}>
+                      <Link
+                        href={`/riddles/${r.slug}`}
+                        className="block p-4 rounded-xl border border-gray-200 hover:border-[#7736FE] hover:shadow-sm transition-all h-full min-h-[5.5rem]"
+                      >
+                        <span className="text-gray-900 text-base font-medium leading-snug line-clamp-4">
+                          {r.question}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            <section className="mt-10 p-5 bg-gray-50 rounded-xl border border-gray-200 text-center">
+              <p className="text-gray-600 text-sm mb-3">More on the blog or the daily riddle.</p>
+              <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground sm:hover:scale-105 sm:hover:transform h-10 px-4 py-2 bg-[#7736FE] hover:bg-purple-700"
+                >
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Blog
+                </Link>
+                <Link
+                  href="/riddle-of-the-day"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+                >
+                  Riddle of the day
+                </Link>
+              </div>
+            </section>
+
+            <p className="mt-6 text-xs text-gray-400 text-center">
+              <a href={`https://www.riddlesrush.com/riddles/${riddle.slug}`} className="underline hover:text-gray-600">
+                Permalink
+              </a>
             </p>
-            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link
-                href={`/riddles/${riddle.categorySlug}`}
-                className="inline-flex items-center rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-[#7736FE] shadow-md transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
-              >
-                More {riddle.category}
-              </Link>
-              <Link
-                href="/"
-                className="inline-flex items-center rounded-xl border-2 border-white/30 px-8 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:border-white/50 hover:bg-white/10"
-              >
-                Back to Home
-              </Link>
-            </div>
-          </div>
-        </section>
-      </main>
+          </article>
+        </div>
+      </div>
       <Footer />
     </>
   );
@@ -475,3 +396,4 @@ export default async function RiddlePage({
   // 404 fallback — triggers Next.js not-found page with proper HTTP 404
   notFound();
 }
+
